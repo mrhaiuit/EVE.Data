@@ -43,8 +43,8 @@ namespace EVE.Data
 
         public Dictionary<Type, object> Repositories
         {
-            get => _repositories;
-            set => Repositories = value;
+            get { return _repositories; }
+            set { Repositories = value; }
         }
 
         #region IDisposable Members

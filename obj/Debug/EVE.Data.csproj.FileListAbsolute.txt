@@ -31,4 +31,3 @@ C:\DEV\Eval-Edu\BackEnd\Components\EVE.Data\bin\Debug\EntityFramework.SqlServer.
 C:\DEV\Eval-Edu\BackEnd\Components\EVE.Data\obj\Debug\EVE.Data.csproj.CopyComplete
 C:\DEV\Eval-Edu\BackEnd\Components\EVE.Data\obj\Debug\EVE.Data.dll
 C:\DEV\Eval-Edu\BackEnd\Components\EVE.Data\obj\Debug\EVE.Data.pdb
-C:\DEV\Eval-Edu\BackEnd\Components\EVE.Data\obj\Debug\EVE.Data.csprojAssemblyReference.cache
