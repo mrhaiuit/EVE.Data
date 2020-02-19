@@ -45,10 +45,10 @@ namespace EVE.Data
         public virtual EduLevel EduLevel { get; set; }
         public virtual EduMinistry EduMinistry { get; set; }
         public virtual EduProvince EduProvince { get; set; }
-        public virtual School School { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserGroup_Employee> UserGroup_Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvalDetail> EvalDetails { get; set; }
+        public virtual School School { get; set; }
     }
 }

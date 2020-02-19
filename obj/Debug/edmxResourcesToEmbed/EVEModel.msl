@@ -184,22 +184,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Schools">
-      <EntityTypeMapping TypeName="EVEModel.School">
-        <MappingFragment StoreEntitySet="School">
-          <ScalarProperty Name="WardId" ColumnName="WardId" />
-          <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
-          <ScalarProperty Name="School1" ColumnName="School" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="EduDepartmentId" ColumnName="EduDepartmentId" />
-          <ScalarProperty Name="EduProvinceId" ColumnName="EduProvinceId" />
-          <ScalarProperty Name="SchoolLevelCode" ColumnName="SchoolLevelCode" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="HotLine" ColumnName="HotLine" />
-          <ScalarProperty Name="MinistryofEducationaCode" ColumnName="MinistryofEducationaCode" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="SchoolLevels">
       <EntityTypeMapping TypeName="EVEModel.SchoolLevel">
         <MappingFragment StoreEntitySet="SchoolLevel">
@@ -322,6 +306,22 @@
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="HostName" ColumnName="HostName" />
           <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schools">
+      <EntityTypeMapping TypeName="EVEModel.School">
+        <MappingFragment StoreEntitySet="School">
+          <ScalarProperty Name="WardId" ColumnName="WardId" />
+          <ScalarProperty Name="MinistryofEducationaCode" ColumnName="MinistryofEducationaCode" />
+          <ScalarProperty Name="HotLine" ColumnName="HotLine" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SchoolLevelCode" ColumnName="SchoolLevelCode" />
+          <ScalarProperty Name="EduProvinceId" ColumnName="EduProvinceId" />
+          <ScalarProperty Name="EduDepartmentId" ColumnName="EduDepartmentId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+          <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

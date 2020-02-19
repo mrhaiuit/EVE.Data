@@ -42,7 +42,6 @@ namespace EVE.Data
         public virtual DbSet<FormGroup> FormGroups { get; set; }
         public virtual DbSet<Form> Forms { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
-        public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<SchoolLevel> SchoolLevels { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
@@ -53,5 +52,6 @@ namespace EVE.Data
         public virtual DbSet<EvalDetail> EvalDetails { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<LoginUser> LoginUsers { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
     }
 }

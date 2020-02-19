@@ -234,7 +234,7 @@
       <PropertyRef Name="SchoolId" />
     </Key>
     <Property Name="SchoolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="School" Type="nvarchar" MaxLength="500" />
+    <Property Name="SchoolName" Type="nvarchar" MaxLength="500" />
     <Property Name="Address" Type="nvarchar" MaxLength="500" />
     <Property Name="EduDepartmentId" Type="int" />
     <Property Name="EduProvinceId" Type="int" />
