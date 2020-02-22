@@ -12,7 +12,10 @@ namespace EVE.Data
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
+    using System.Collections.Generic;
+
     public partial class EVEEntities : DbContext
     {
         public EVEEntities()
@@ -53,5 +56,18 @@ namespace EVE.Data
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<LoginUser> LoginUsers { get; set; }
         public virtual DbSet<School> Schools { get; set; }
+    
+        public virtual List<usp_GetPeriodByYearAndSchool_Result> usp_GetPeriodByYearAndSchool(Nullable<int> year, Nullable<int> schoolId)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var schoolIdParameter = schoolId.HasValue ?
+                new ObjectParameter("schoolId", schoolId) :
+                new ObjectParameter("schoolId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPeriodByYearAndSchool_Result>("usp_GetPeriodByYearAndSchool", yearParameter, schoolIdParameter).ToList();
+        }
     }
 }
