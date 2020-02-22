@@ -1,7 +1,0 @@
-E:\HAI\EVE\Backend\V2\Build\App.Config
-E:\HAI\EVE\Backend\V2\Build\EVE.Data.dll.config
-E:\HAI\EVE\Backend\V2\Build\EVE.Data.dll
-E:\HAI\EVE\Backend\V2\Build\EVE.Data.pdb
-E:\HAI\EVE\Backend\V2\Components\EVE.Data\obj\Debug\EVE.Data.csproj.CopyComplete
-E:\HAI\EVE\Backend\V2\Components\EVE.Data\obj\Debug\EVE.Data.dll
-E:\HAI\EVE\Backend\V2\Components\EVE.Data\obj\Debug\EVE.Data.pdb
