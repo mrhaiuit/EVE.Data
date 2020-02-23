@@ -31,11 +31,11 @@ namespace EVE.Data
         public Nullable<int> UpdateBy { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
     
-        public virtual Employee Employee { get; set; }
-        public virtual Employee Employee1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvalDetail> EvalDetails { get; set; }
         public virtual EvalPeriod EvalPeriod { get; set; }
         public virtual EvalState EvalState { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
     }
 }

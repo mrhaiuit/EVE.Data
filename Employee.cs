@@ -17,9 +17,9 @@ namespace EVE.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employee()
         {
-            this.UserGroup_Employee = new HashSet<UserGroup_Employee>();
             this.EvalMasters = new HashSet<EvalMaster>();
             this.EvalMasters1 = new HashSet<EvalMaster>();
+            this.UserGroup_Employee = new HashSet<UserGroup_Employee>();
         }
     
         public int EmployeeId { get; set; }
@@ -42,17 +42,19 @@ namespace EVE.Data
         public string Email { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<int> CreateBy { get; set; }
+        public Nullable<int> SchoolDepartmentId { get; set; }
     
         public virtual EduDepartment EduDepartment { get; set; }
         public virtual EduLevel EduLevel { get; set; }
         public virtual EduMinistry EduMinistry { get; set; }
         public virtual EduProvince EduProvince { get; set; }
         public virtual School School { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserGroup_Employee> UserGroup_Employee { get; set; }
+        public virtual SchoolDepartment SchoolDepartment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvalMaster> EvalMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvalMaster> EvalMasters1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserGroup_Employee> UserGroup_Employee { get; set; }
     }
 }

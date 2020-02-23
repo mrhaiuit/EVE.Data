@@ -154,6 +154,9 @@
     <Compile Include="School.cs">
       <DependentUpon>EVEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SchoolDepartment.cs">
+      <DependentUpon>EVEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SchoolLevel.cs">
       <DependentUpon>EVEModel.tt</DependentUpon>
     </Compile>
