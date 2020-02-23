@@ -57,7 +57,7 @@ namespace EVE.Data
         public virtual DbSet<EvalMaster> EvalMasters { get; set; }
         public virtual DbSet<EvalPeriod> EvalPeriods { get; set; }
     
-        public virtual List<usp_GetPeriodByYearAndSchool_Result> usp_GetPeriodByYearAndSchool(Nullable<int> year, Nullable<int> schoolId)
+        public virtual List<usp_GetPeriodByYearAndSchool_Result> usp_GetPeriodByYearAndSchool(Nullable<int> year, Nullable<int> schoolId, string evalTypeCode)
         {
             var yearParameter = year.HasValue ?
                 new ObjectParameter("year", year) :
@@ -67,7 +67,12 @@ namespace EVE.Data
                 new ObjectParameter("schoolId", schoolId) :
                 new ObjectParameter("schoolId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPeriodByYearAndSchool_Result>("usp_GetPeriodByYearAndSchool", yearParameter, schoolIdParameter).ToList();
+            var evalTypeCodeParameter = evalTypeCode != null ?
+                new ObjectParameter("evalTypeCode", evalTypeCode) :
+                new ObjectParameter("evalTypeCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPeriodByYearAndSchool_Result>("usp_GetPeriodByYearAndSchool", yearParameter, schoolIdParameter, evalTypeCodeParameter).ToList();
         }
+    
     }
 }

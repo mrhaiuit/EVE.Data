@@ -171,6 +171,9 @@
     <Compile Include="UserGroup_Form.cs">
       <DependentUpon>EVEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_GetPeriodByYearAndSchool1_Result.cs">
+      <DependentUpon>EVEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_GetPeriodByYearAndSchool_Result.cs">
       <DependentUpon>EVEModel.tt</DependentUpon>
     </Compile>
