@@ -18,6 +18,7 @@ namespace EVE.Data
         public EvalCriteria()
         {
             this.EvalGuides = new HashSet<EvalGuide>();
+            this.EvalDetails = new HashSet<EvalDetail>();
         }
     
         public int EvalCriteriaId { get; set; }
@@ -29,5 +30,7 @@ namespace EVE.Data
         public virtual EvalStandard EvalStandard { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvalGuide> EvalGuides { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EvalDetail> EvalDetails { get; set; }
     }
 }

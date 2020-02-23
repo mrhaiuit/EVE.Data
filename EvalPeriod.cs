@@ -14,12 +14,23 @@ namespace EVE.Data
     
     public partial class EvalPeriod
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public EvalPeriod()
+        {
+            this.EvalMasters = new HashSet<EvalMaster>();
+        }
+    
         public int EvalPeriodId { get; set; }
+        public string EvalTypeCode { get; set; }
         public string PeriodName { get; set; }
         public Nullable<int> Year { get; set; }
         public Nullable<System.DateTime> FromDate { get; set; }
         public Nullable<System.DateTime> ToDate { get; set; }
         public Nullable<int> SchoolId { get; set; }
         public string Remark { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EvalMaster> EvalMasters { get; set; }
+        public virtual EvalType EvalType { get; set; }
     }
 }

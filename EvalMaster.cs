@@ -21,19 +21,21 @@ namespace EVE.Data
         }
     
         public int EvalMasterId { get; set; }
-        public Nullable<int> Year { get; set; }
-        public string EvalTypeCode { get; set; }
-        public Nullable<int> SchoolId { get; set; }
-        public Nullable<System.DateTime> FromDate { get; set; }
-        public Nullable<System.DateTime> ToDate { get; set; }
         public string Remark { get; set; }
-        public Nullable<bool> Active { get; set; }
         public string EvalStateCode { get; set; }
+        public Nullable<int> EvalPeriodId { get; set; }
+        public Nullable<int> BeEvalEmployeeId { get; set; }
+        public Nullable<int> EvalEmployeeId { get; set; }
+        public Nullable<int> CreateBy { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<int> UpdateBy { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     
-        public virtual EvalState EvalState { get; set; }
-        public virtual EvalType EvalType { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvalDetail> EvalDetails { get; set; }
-        public virtual School School { get; set; }
+        public virtual EvalPeriod EvalPeriod { get; set; }
+        public virtual EvalState EvalState { get; set; }
     }
 }

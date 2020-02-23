@@ -17,7 +17,6 @@ namespace EVE.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public School()
         {
-            this.EvalMasters = new HashSet<EvalMaster>();
             this.UserGroup_Employee = new HashSet<UserGroup_Employee>();
             this.Employees = new HashSet<Employee>();
         }
@@ -36,8 +35,6 @@ namespace EVE.Data
         public virtual EduDepartment EduDepartment { get; set; }
         public virtual EduMinistry EduMinistry { get; set; }
         public virtual EduProvince EduProvince { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EvalMaster> EvalMasters { get; set; }
         public virtual SchoolLevel SchoolLevel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserGroup_Employee> UserGroup_Employee { get; set; }

@@ -17,16 +17,16 @@ namespace EVE.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EvalType()
         {
-            this.EvalMasters = new HashSet<EvalMaster>();
             this.EvalStandards = new HashSet<EvalStandard>();
+            this.EvalPeriods = new HashSet<EvalPeriod>();
         }
     
         public string EvalTypeCode { get; set; }
         public string EvalTypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EvalMaster> EvalMasters { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvalStandard> EvalStandards { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EvalPeriod> EvalPeriods { get; set; }
     }
 }
