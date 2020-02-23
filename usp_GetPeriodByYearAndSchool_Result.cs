@@ -14,6 +14,7 @@ namespace EVE.Data
     public partial class usp_GetPeriodByYearAndSchool_Result
     {
         public int EvalPeriodId { get; set; }
+        public string EvalTypeCode { get; set; }
         public string PeriodName { get; set; }
         public Nullable<int> Year { get; set; }
         public Nullable<System.DateTime> FromDate { get; set; }

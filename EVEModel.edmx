@@ -1602,11 +1602,6 @@
             <End Role="School" EntitySet="Schools" />
             <End Role="UserGroup_Employee" EntitySet="UserGroup_Employee" />
           </AssociationSet>
-          <FunctionImport Name="usp_GetPeriodByYearAndSchool" ReturnType="Collection(EVEModel.usp_GetPeriodByYearAndSchool_Result)">
-            <Parameter Name="year" Mode="In" Type="Int32" />
-            <Parameter Name="schoolId" Mode="In" Type="Int32" />
-            <Parameter Name="evalTypeCode" Mode="In" Type="String" />
-          </FunctionImport>
           <EntitySet Name="Employees" EntityType="EVEModel.Employee" />
           <AssociationSet Name="FK_Employee_EduDepartment" Association="EVEModel.FK_Employee_EduDepartment">
             <End Role="EduDepartment" EntitySet="EduDepartments" />
@@ -1663,7 +1658,7 @@
             <End Role="EvalType" EntitySet="EvalTypes" />
             <End Role="EvalPeriod" EntitySet="EvalPeriods" />
           </AssociationSet>
-          <FunctionImport Name="usp_GetPeriodByYearAndSchool1" ReturnType="Collection(EVEModel.usp_GetPeriodByYearAndSchool1_Result)">
+          <FunctionImport Name="usp_GetPeriodByYearAndSchool" ReturnType="Collection(EVEModel.usp_GetPeriodByYearAndSchool_Result)">
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="schoolId" Mode="In" Type="Int32" />
             <Parameter Name="evalTypeCode" Mode="In" Type="String" />
@@ -1775,21 +1770,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="usp_GetPeriodByYearAndSchool_Result">
-          <Property Type="Int32" Name="EvalPeriodId" Nullable="false" />
-          <Property Type="String" Name="PeriodName" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="Year" Nullable="true" />
-          <Property Type="DateTime" Name="FromDate" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="ToDate" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="SchoolId" Nullable="true" />
-          <Property Type="String" Name="Remark" Nullable="true" MaxLength="2000" />
-          <Property Type="String" Name="State" Nullable="false" MaxLength="1" />
-          <Property Type="Int32" Name="JoinTotal" Nullable="false" />
-          <Property Type="Int32" Name="Under" Nullable="false" />
-          <Property Type="Int32" Name="Medium" Nullable="false" />
-          <Property Type="Int32" Name="SermiGood" Nullable="false" />
-          <Property Type="Int32" Name="Good" Nullable="false" />
-        </ComplexType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeId" />
@@ -2027,7 +2007,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="usp_GetPeriodByYearAndSchool1_Result">
+        <ComplexType Name="usp_GetPeriodByYearAndSchool_Result">
           <Property Type="Int32" Name="EvalPeriodId" Nullable="false" />
           <Property Type="String" Name="EvalTypeCode" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="PeriodName" Nullable="true" MaxLength="500" />
@@ -2374,9 +2354,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_GetPeriodByYearAndSchool1" FunctionName="EVEModel.Store.usp_GetPeriodByYearAndSchool">
+          <FunctionImportMapping FunctionImportName="usp_GetPeriodByYearAndSchool" FunctionName="EVEModel.Store.usp_GetPeriodByYearAndSchool">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="EVEModel.usp_GetPeriodByYearAndSchool1_Result">
+              <ComplexTypeMapping TypeName="EVEModel.usp_GetPeriodByYearAndSchool_Result">
                 <ScalarProperty Name="EvalPeriodId" ColumnName="EvalPeriodId" />
                 <ScalarProperty Name="EvalTypeCode" ColumnName="EvalTypeCode" />
                 <ScalarProperty Name="PeriodName" ColumnName="PeriodName" />
@@ -2394,7 +2374,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

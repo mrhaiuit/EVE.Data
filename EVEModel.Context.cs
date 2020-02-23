@@ -73,6 +73,5 @@ namespace EVE.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPeriodByYearAndSchool_Result>("usp_GetPeriodByYearAndSchool", yearParameter, schoolIdParameter, evalTypeCodeParameter).ToList();
         }
-    
     }
 }
