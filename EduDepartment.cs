@@ -18,8 +18,8 @@ namespace EVE.Data
         public EduDepartment()
         {
             this.UserGroup_Employee = new HashSet<UserGroup_Employee>();
-            this.Employees = new HashSet<Employee>();
             this.Schools = new HashSet<School>();
+            this.Employees = new HashSet<Employee>();
         }
     
         public int EduDepartmentId { get; set; }
@@ -34,8 +34,8 @@ namespace EVE.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserGroup_Employee> UserGroup_Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<School> Schools { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

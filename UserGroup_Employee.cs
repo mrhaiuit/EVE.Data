@@ -25,7 +25,7 @@ namespace EVE.Data
         public virtual EduMinistry EduMinistry { get; set; }
         public virtual EduProvince EduProvince { get; set; }
         public virtual UserGroup UserGroup { get; set; }
-        public virtual Employee Employee { get; set; }
         public virtual School School { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

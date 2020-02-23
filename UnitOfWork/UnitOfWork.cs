@@ -77,11 +77,12 @@ namespace EVE.Data
             _objTran?.Dispose();
         }
 
-        public void Save()
+        public bool Save()
         {
             try
             {
                 Context.SaveChanges();
+                return true;
             }
             catch (DbEntityValidationException dbEx)
             {
@@ -89,7 +90,7 @@ namespace EVE.Data
                 foreach (var validationError in validationErrors.ValidationErrors)
                     _errorMessage += string.Format("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage)
                                      + Environment.NewLine;
-                throw new Exception(_errorMessage, dbEx);
+                return false;
             }
         }
 

@@ -23,7 +23,7 @@ namespace EVE.Data
         public string Attachment { get; set; }
         public Nullable<int> EvalForEmployee { get; set; }
     
-        public virtual Employee Employee { get; set; }
         public virtual EvalMaster EvalMaster { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

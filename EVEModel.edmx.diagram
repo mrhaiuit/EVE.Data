@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="23da066c19b945018affa92ec2bc39e7" Name="Diagram1" ZoomLevel="73">
+      <Diagram DiagramId="23da066c19b945018affa92ec2bc39e7" Name="Diagram1" ZoomLevel="71">
         <EntityTypeShape EntityType="EVEModel.Country" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="EVEModel.District" Width="1.5" PointX="5.25" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="EVEModel.EduDepartment" Width="1.5" PointX="7.5" PointY="6.625" IsExpanded="true" />
@@ -51,14 +51,7 @@
         <AssociationConnector Association="EVEModel.FK_UserGroup_Form_Form" ManuallyRouted="false" />
         <AssociationConnector Association="EVEModel.FK_UserGroup_Employee_UserGroup" ManuallyRouted="false" />
         <AssociationConnector Association="EVEModel.FK_UserGroup_Form_UserGroup" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="EVEModel.Employee" Width="1.5" PointX="18" PointY="0.75" />
-        <AssociationConnector Association="EVEModel.FK_Employee_EduDepartment" />
-        <AssociationConnector Association="EVEModel.FK_Employee_EduLevel" />
-        <AssociationConnector Association="EVEModel.FK_Employee_MinistryofEducation" />
-        <AssociationConnector Association="EVEModel.FK_Employee_EduProvince" />
-        <AssociationConnector Association="EVEModel.FK_UserGroup_Employee_Employee" />
         <EntityTypeShape EntityType="EVEModel.EvalDetail" Width="1.5" PointX="20.25" PointY="2.5" />
-        <AssociationConnector Association="EVEModel.FK_EvalDetail_Employee" />
         <AssociationConnector Association="EVEModel.FK_EvalDetail_EvalMaster" />
         <EntityTypeShape EntityType="EVEModel.Position" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="EVEModel.LoginUser" Width="1.5" PointX="0.75" PointY="13.75" />
@@ -66,10 +59,17 @@
         <AssociationConnector Association="EVEModel.FK_School_EduDepartment" />
         <AssociationConnector Association="EVEModel.FK_School_MinistryofEducation" />
         <AssociationConnector Association="EVEModel.FK_School_EduProvince" />
-        <AssociationConnector Association="EVEModel.FK_Employee_School" />
         <AssociationConnector Association="EVEModel.FK_EvalMaster_School" />
         <AssociationConnector Association="EVEModel.FK_School_SchoolLevel" />
         <AssociationConnector Association="EVEModel.FK_UserGroup_Employee_School" />
+        <EntityTypeShape EntityType="EVEModel.Employee" Width="1.5" PointX="18" PointY="0.75" />
+        <AssociationConnector Association="EVEModel.FK_Employee_EduDepartment" />
+        <AssociationConnector Association="EVEModel.FK_Employee_EduLevel" />
+        <AssociationConnector Association="EVEModel.FK_Employee_MinistryofEducation" />
+        <AssociationConnector Association="EVEModel.FK_Employee_EduProvince" />
+        <AssociationConnector Association="EVEModel.FK_Employee_School" />
+        <AssociationConnector Association="EVEModel.FK_EvalDetail_Employee" />
+        <AssociationConnector Association="EVEModel.FK_UserGroup_Employee_Employee" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

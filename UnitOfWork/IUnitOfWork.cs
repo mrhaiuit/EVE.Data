@@ -13,7 +13,7 @@ namespace EVE.Data
 
         void Rollback();
 
-        void Save();
+        bool Save();
 
         IGenericRepository<T> Repository<T>()
                 where T : class;

@@ -51,11 +51,11 @@ namespace EVE.Data
         public virtual DbSet<UserGroup_Employee> UserGroup_Employee { get; set; }
         public virtual DbSet<UserGroup_Form> UserGroup_Form { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EvalDetail> EvalDetails { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<LoginUser> LoginUsers { get; set; }
         public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
     
         public virtual List<usp_GetPeriodByYearAndSchool_Result> usp_GetPeriodByYearAndSchool(Nullable<int> year, Nullable<int> schoolId)
         {
