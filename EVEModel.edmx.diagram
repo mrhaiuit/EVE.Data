@@ -72,7 +72,7 @@
         <AssociationConnector Association="EVEModel.FK_EvalMaster_Employee1" />
         <AssociationConnector Association="EVEModel.FK_UserGroup_Employee_Employee" />
         <AssociationConnector Association="EVEModel.FK_SchoolDepartment_School" />
-        <EntityTypeShape EntityType="EVEModel.EvalDetail" Width="1.5" PointX="22.5" PointY="9.75" />
+        <EntityTypeShape EntityType="EVEModel.EvalDetail" Width="1.5" PointX="22.5" PointY="10.75" />
         <AssociationConnector Association="EVEModel.FK_EvalDetail_EvalCriteria" />
         <AssociationConnector Association="EVEModel.FK_EvalDetail_EvalMaster" />
         </Diagram>

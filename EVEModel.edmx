@@ -102,9 +102,10 @@
           </Key>
           <Property Name="EvalDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EvalMasterId" Type="int" Nullable="false" />
-          <Property Name="EvalStandardName" Type="nvarchar" MaxLength="500" />
+          <Property Name="EvalStandardId" Type="int" />
+          <Property Name="EvalStandardName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="EvalCriteriaId" Type="int" Nullable="false" />
-          <Property Name="EvalCriteriaName" Type="nvarchar" MaxLength="500" />
+          <Property Name="EvalCriteriaName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="EvalResultCode" Type="varchar" MaxLength="50" />
           <Property Name="Sample" Type="nvarchar(max)" />
           <Property Name="Attachment" Type="varchar" MaxLength="300" />
@@ -2082,9 +2083,10 @@
           </Key>
           <Property Name="EvalDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EvalMasterId" Type="Int32" Nullable="false" />
-          <Property Name="EvalStandardName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EvalStandardId" Type="Int32" />
+          <Property Name="EvalStandardName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="EvalCriteriaId" Type="Int32" Nullable="false" />
-          <Property Name="EvalCriteriaName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EvalCriteriaName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="EvalResultCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Sample" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Attachment" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
@@ -2473,6 +2475,7 @@
                 <ScalarProperty Name="EvalCriteriaName" ColumnName="EvalCriteriaName" />
                 <ScalarProperty Name="EvalCriteriaId" ColumnName="EvalCriteriaId" />
                 <ScalarProperty Name="EvalStandardName" ColumnName="EvalStandardName" />
+                <ScalarProperty Name="EvalStandardId" ColumnName="EvalStandardId" />
                 <ScalarProperty Name="EvalMasterId" ColumnName="EvalMasterId" />
                 <ScalarProperty Name="EvalDetailId" ColumnName="EvalDetailId" />
               </MappingFragment>

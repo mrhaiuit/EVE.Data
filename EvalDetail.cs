@@ -16,6 +16,7 @@ namespace EVE.Data
     {
         public int EvalDetailId { get; set; }
         public int EvalMasterId { get; set; }
+        public Nullable<int> EvalStandardId { get; set; }
         public string EvalStandardName { get; set; }
         public int EvalCriteriaId { get; set; }
         public string EvalCriteriaName { get; set; }
