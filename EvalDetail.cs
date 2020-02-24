@@ -15,8 +15,10 @@ namespace EVE.Data
     public partial class EvalDetail
     {
         public int EvalDetailId { get; set; }
-        public Nullable<int> EvalMasterId { get; set; }
-        public Nullable<int> EvalCriteriaId { get; set; }
+        public int EvalMasterId { get; set; }
+        public string EvalStandardName { get; set; }
+        public int EvalCriteriaId { get; set; }
+        public string EvalCriteriaName { get; set; }
         public string EvalResultCode { get; set; }
         public string Sample { get; set; }
         public string Attachment { get; set; }
