@@ -24,7 +24,7 @@ namespace EVE.Data
         public string Sample { get; set; }
         public string Attachment { get; set; }
     
-        public virtual EvalCriteria EvalCriteria { get; set; }
         public virtual EvalMaster EvalMaster { get; set; }
+        public virtual EvalCriteria EvalCriteria { get; set; }
     }
 }

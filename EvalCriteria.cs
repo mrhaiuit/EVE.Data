@@ -17,20 +17,21 @@ namespace EVE.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EvalCriteria()
         {
-            this.EvalGuides = new HashSet<EvalGuide>();
             this.EvalDetails = new HashSet<EvalDetail>();
+            this.EvalGuides = new HashSet<EvalGuide>();
         }
     
         public int EvalCriteriaId { get; set; }
         public Nullable<int> EvalStandardId { get; set; }
+        public string EvalCriteriaCode { get; set; }
         public string EvalCriteriaName { get; set; }
         public Nullable<bool> Active { get; set; }
         public string Idx { get; set; }
     
         public virtual EvalStandard EvalStandard { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EvalGuide> EvalGuides { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvalDetail> EvalDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EvalGuide> EvalGuides { get; set; }
     }
 }

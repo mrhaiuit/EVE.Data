@@ -28,9 +28,9 @@ namespace EVE.Data
         public Nullable<int> Idx { get; set; }
         public string Remarks { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EvalCriteria> EvalCriterias { get; set; }
         public virtual EvalType EvalType { get; set; }
         public virtual SchoolLevel SchoolLevel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EvalCriteria> EvalCriterias { get; set; }
     }
 }
