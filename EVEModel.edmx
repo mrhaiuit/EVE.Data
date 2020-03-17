@@ -85,6 +85,7 @@
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="CreateBy" Type="int" />
           <Property Name="SchoolDepartmentId" Type="int" />
+          <Property Name="UserGroupCode" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="EvalCriteria">
           <Key>
@@ -435,6 +436,18 @@
             </Principal>
             <Dependent Role="Employee">
               <PropertyRef Name="SchoolDepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_UserGroup">
+          <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserGroup">
+              <PropertyRef Name="UserGroupCode" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserGroupCode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -887,6 +900,10 @@
             <End Role="SchoolDepartment" EntitySet="SchoolDepartment" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employee_UserGroup" Association="Self.FK_Employee_UserGroup">
+            <End Role="UserGroup" EntitySet="UserGroup" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
           <AssociationSet Name="FK_EvalCriteria_EvalStandard" Association="Self.FK_EvalCriteria_EvalStandard">
             <End Role="EvalStandard" EntitySet="EvalStandard" />
             <End Role="EvalCriteria" EntitySet="EvalCriteria" />
@@ -1215,6 +1232,7 @@
           <NavigationProperty Name="EduLevel" Relationship="Self.FK_UserGroup_EduLevel" FromRole="UserGroup" ToRole="EduLevel" />
           <NavigationProperty Name="UserGroup_Employee" Relationship="Self.FK_UserGroup_Employee_UserGroup" FromRole="UserGroup" ToRole="UserGroup_Employee" />
           <NavigationProperty Name="UserGroup_Form" Relationship="Self.FK_UserGroup_Form_UserGroup" FromRole="UserGroup" ToRole="UserGroup_Form" />
+          <NavigationProperty Name="Employees" Relationship="EVEModel.FK_Employee_UserGroup" FromRole="UserGroup" ToRole="Employee" />
         </EntityType>
         <EntityType Name="UserGroup_Employee">
           <Key>
@@ -1621,8 +1639,30 @@
             <Parameter Name="schoolId" Mode="In" Type="Int32" />
             <Parameter Name="evalTypeCode" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="Employees" EntityType="EVEModel.Employee" />
           <EntitySet Name="SchoolDepartments" EntityType="EVEModel.SchoolDepartment" />
+          <AssociationSet Name="FK_SchoolDepartment_School" Association="EVEModel.FK_SchoolDepartment_School">
+            <End Role="School" EntitySet="Schools" />
+            <End Role="SchoolDepartment" EntitySet="SchoolDepartments" />
+          </AssociationSet>
+          <EntitySet Name="EvalDetails" EntityType="EVEModel.EvalDetail" />
+          <AssociationSet Name="FK_EvalDetail_EvalMaster" Association="EVEModel.FK_EvalDetail_EvalMaster">
+            <End Role="EvalMaster" EntitySet="EvalMasters" />
+            <End Role="EvalDetail" EntitySet="EvalDetails" />
+          </AssociationSet>
+          <EntitySet Name="EvalCriterias" EntityType="EVEModel.EvalCriteria" />
+          <AssociationSet Name="FK_EvalCriteria_EvalStandard" Association="EVEModel.FK_EvalCriteria_EvalStandard">
+            <End Role="EvalStandard" EntitySet="EvalStandards" />
+            <End Role="EvalCriteria" EntitySet="EvalCriterias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EvalDetail_EvalCriteria" Association="EVEModel.FK_EvalDetail_EvalCriteria">
+            <End Role="EvalCriteria" EntitySet="EvalCriterias" />
+            <End Role="EvalDetail" EntitySet="EvalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EvalGuide_EvalCriteria" Association="EVEModel.FK_EvalGuide_EvalCriteria">
+            <End Role="EvalCriteria" EntitySet="EvalCriterias" />
+            <End Role="EvalGuide" EntitySet="EvalGuides" />
+          </AssociationSet>
+          <EntitySet Name="Employees" EntityType="EVEModel.Employee" />
           <AssociationSet Name="FK_Employee_EduDepartment" Association="EVEModel.FK_Employee_EduDepartment">
             <End Role="EduDepartment" EntitySet="EduDepartments" />
             <End Role="Employee" EntitySet="Employees" />
@@ -1647,6 +1687,10 @@
             <End Role="SchoolDepartment" EntitySet="SchoolDepartments" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
+          <AssociationSet Name="FK_Employee_UserGroup" Association="EVEModel.FK_Employee_UserGroup">
+            <End Role="UserGroup" EntitySet="UserGroups" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
           <AssociationSet Name="FK_EvalMaster_Employee" Association="EVEModel.FK_EvalMaster_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="EvalMaster" EntitySet="EvalMasters" />
@@ -1658,28 +1702,6 @@
           <AssociationSet Name="FK_UserGroup_Employee_Employee" Association="EVEModel.FK_UserGroup_Employee_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="UserGroup_Employee" EntitySet="UserGroup_Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SchoolDepartment_School" Association="EVEModel.FK_SchoolDepartment_School">
-            <End Role="School" EntitySet="Schools" />
-            <End Role="SchoolDepartment" EntitySet="SchoolDepartments" />
-          </AssociationSet>
-          <EntitySet Name="EvalDetails" EntityType="EVEModel.EvalDetail" />
-          <AssociationSet Name="FK_EvalDetail_EvalMaster" Association="EVEModel.FK_EvalDetail_EvalMaster">
-            <End Role="EvalMaster" EntitySet="EvalMasters" />
-            <End Role="EvalDetail" EntitySet="EvalDetails" />
-          </AssociationSet>
-          <EntitySet Name="EvalCriterias" EntityType="EVEModel.EvalCriteria" />
-          <AssociationSet Name="FK_EvalCriteria_EvalStandard" Association="EVEModel.FK_EvalCriteria_EvalStandard">
-            <End Role="EvalStandard" EntitySet="EvalStandards" />
-            <End Role="EvalCriteria" EntitySet="EvalCriterias" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EvalDetail_EvalCriteria" Association="EVEModel.FK_EvalDetail_EvalCriteria">
-            <End Role="EvalCriteria" EntitySet="EvalCriterias" />
-            <End Role="EvalDetail" EntitySet="EvalDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EvalGuide_EvalCriteria" Association="EVEModel.FK_EvalGuide_EvalCriteria">
-            <End Role="EvalCriteria" EntitySet="EvalCriterias" />
-            <End Role="EvalGuide" EntitySet="EvalGuides" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Position">
@@ -1726,8 +1748,8 @@
           <NavigationProperty Name="EduProvince" Relationship="EVEModel.FK_School_EduProvince" FromRole="School" ToRole="EduProvince" />
           <NavigationProperty Name="SchoolLevel" Relationship="EVEModel.FK_School_SchoolLevel" FromRole="School" ToRole="SchoolLevel" />
           <NavigationProperty Name="UserGroup_Employee" Relationship="EVEModel.FK_UserGroup_Employee_School" FromRole="School" ToRole="UserGroup_Employee" />
-          <NavigationProperty Name="Employees" Relationship="EVEModel.FK_Employee_School" FromRole="School" ToRole="Employee" />
           <NavigationProperty Name="SchoolDepartments" Relationship="EVEModel.FK_SchoolDepartment_School" FromRole="School" ToRole="SchoolDepartment" />
+          <NavigationProperty Name="Employees" Relationship="EVEModel.FK_Employee_School" FromRole="School" ToRole="Employee" />
         </EntityType>
         <Association Name="FK_School_EduDepartment">
           <End Type="EVEModel.EduDepartment" Role="EduDepartment" Multiplicity="0..1" />
@@ -1805,9 +1827,9 @@
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="EvalPeriod" Relationship="EVEModel.FK_EvalMaster_EvalPeriod" FromRole="EvalMaster" ToRole="EvalPeriod" />
           <NavigationProperty Name="EvalState" Relationship="EVEModel.FK_EvalMaster_EvalState" FromRole="EvalMaster" ToRole="EvalState" />
+          <NavigationProperty Name="EvalDetails" Relationship="EVEModel.FK_EvalDetail_EvalMaster" FromRole="EvalMaster" ToRole="EvalDetail" />
           <NavigationProperty Name="Employee" Relationship="EVEModel.FK_EvalMaster_Employee" FromRole="EvalMaster" ToRole="Employee" />
           <NavigationProperty Name="Employee1" Relationship="EVEModel.FK_EvalMaster_Employee1" FromRole="EvalMaster" ToRole="Employee" />
-          <NavigationProperty Name="EvalDetails" Relationship="EVEModel.FK_EvalDetail_EvalMaster" FromRole="EvalMaster" ToRole="EvalDetail" />
         </EntityType>
         <EntityType Name="EvalPeriod">
           <Key>
@@ -1876,41 +1898,6 @@
           <Property Type="Int32" Name="SermiGood" Nullable="false" />
           <Property Type="Int32" Name="Good" Nullable="false" />
         </ComplexType>
-        <EntityType Name="Employee">
-          <Key>
-            <PropertyRef Name="EmployeeId" />
-          </Key>
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EmployeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="EmployeeName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MinistryofEducationaCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EduProvinceId" Type="Int32" />
-          <Property Name="EduDepartmentId" Type="Int32" />
-          <Property Name="SchoolId" Type="Int32" />
-          <Property Name="Active" Type="Boolean" />
-          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="EduLevelCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PositionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Birthday" Type="DateTime" Precision="3" />
-          <Property Name="Sex" Type="Boolean" />
-          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="CreateBy" Type="Int32" />
-          <Property Name="SchoolDepartmentId" Type="Int32" />
-          <NavigationProperty Name="EduDepartment" Relationship="EVEModel.FK_Employee_EduDepartment" FromRole="Employee" ToRole="EduDepartment" />
-          <NavigationProperty Name="EduLevel" Relationship="EVEModel.FK_Employee_EduLevel" FromRole="Employee" ToRole="EduLevel" />
-          <NavigationProperty Name="EduMinistry" Relationship="EVEModel.FK_Employee_MinistryofEducation" FromRole="Employee" ToRole="EduMinistry" />
-          <NavigationProperty Name="EduProvince" Relationship="EVEModel.FK_Employee_EduProvince" FromRole="Employee" ToRole="EduProvince" />
-          <NavigationProperty Name="School" Relationship="EVEModel.FK_Employee_School" FromRole="Employee" ToRole="School" />
-          <NavigationProperty Name="SchoolDepartment" Relationship="EVEModel.FK_Employee_SchoolDepartment" FromRole="Employee" ToRole="SchoolDepartment" />
-          <NavigationProperty Name="EvalMasters" Relationship="EVEModel.FK_EvalMaster_Employee" FromRole="Employee" ToRole="EvalMaster" />
-          <NavigationProperty Name="EvalMasters1" Relationship="EVEModel.FK_EvalMaster_Employee1" FromRole="Employee" ToRole="EvalMaster" />
-          <NavigationProperty Name="UserGroup_Employee" Relationship="EVEModel.FK_UserGroup_Employee_Employee" FromRole="Employee" ToRole="UserGroup_Employee" />
-        </EntityType>
         <EntityType Name="SchoolDepartment">
           <Key>
             <PropertyRef Name="SchoolDepartmentId" />
@@ -1918,117 +1905,9 @@
           <Property Name="SchoolDepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SchoolId" Type="Int32" Nullable="false" />
           <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employees" Relationship="EVEModel.FK_Employee_SchoolDepartment" FromRole="SchoolDepartment" ToRole="Employee" />
           <NavigationProperty Name="School" Relationship="EVEModel.FK_SchoolDepartment_School" FromRole="SchoolDepartment" ToRole="School" />
+          <NavigationProperty Name="Employees" Relationship="EVEModel.FK_Employee_SchoolDepartment" FromRole="SchoolDepartment" ToRole="Employee" />
         </EntityType>
-        <Association Name="FK_Employee_EduDepartment">
-          <End Type="EVEModel.EduDepartment" Role="EduDepartment" Multiplicity="0..1" />
-          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EduDepartment">
-              <PropertyRef Name="EduDepartmentId" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="EduDepartmentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_EduLevel">
-          <End Type="EVEModel.EduLevel" Role="EduLevel" Multiplicity="0..1" />
-          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EduLevel">
-              <PropertyRef Name="EduLevelCode" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="EduLevelCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_MinistryofEducation">
-          <End Type="EVEModel.EduMinistry" Role="EduMinistry" Multiplicity="0..1" />
-          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EduMinistry">
-              <PropertyRef Name="EduMinistryCode" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="MinistryofEducationaCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_EduProvince">
-          <End Type="EVEModel.EduProvince" Role="EduProvince" Multiplicity="0..1" />
-          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EduProvince">
-              <PropertyRef Name="EduProvinceId" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="EduProvinceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_School">
-          <End Type="EVEModel.School" Role="School" Multiplicity="0..1" />
-          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="School">
-              <PropertyRef Name="SchoolId" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="SchoolId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_SchoolDepartment">
-          <End Type="EVEModel.SchoolDepartment" Role="SchoolDepartment" Multiplicity="0..1" />
-          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SchoolDepartment">
-              <PropertyRef Name="SchoolDepartmentId" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="SchoolDepartmentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EvalMaster_Employee">
-          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="0..1" />
-          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeId" />
-            </Principal>
-            <Dependent Role="EvalMaster">
-              <PropertyRef Name="BeEvalEmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EvalMaster_Employee1">
-          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="0..1" />
-          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeId" />
-            </Principal>
-            <Dependent Role="EvalMaster">
-              <PropertyRef Name="EvalEmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserGroup_Employee_Employee">
-          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="1" />
-          <End Type="EVEModel.UserGroup_Employee" Role="UserGroup_Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeId" />
-            </Principal>
-            <Dependent Role="UserGroup_Employee">
-              <PropertyRef Name="EmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SchoolDepartment_School">
           <End Type="EVEModel.School" Role="School" Multiplicity="1" />
           <End Type="EVEModel.SchoolDepartment" Role="SchoolDepartment" Multiplicity="*" />
@@ -2118,6 +1997,163 @@
             </Principal>
             <Dependent Role="EvalGuide">
               <PropertyRef Name="EvalCriteriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MinistryofEducationaCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EduProvinceId" Type="Int32" />
+          <Property Name="EduDepartmentId" Type="Int32" />
+          <Property Name="SchoolId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EduLevelCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PositionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="SchoolDepartmentId" Type="Int32" />
+          <Property Name="UserGroupCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EduDepartment" Relationship="EVEModel.FK_Employee_EduDepartment" FromRole="Employee" ToRole="EduDepartment" />
+          <NavigationProperty Name="EduLevel" Relationship="EVEModel.FK_Employee_EduLevel" FromRole="Employee" ToRole="EduLevel" />
+          <NavigationProperty Name="EduMinistry" Relationship="EVEModel.FK_Employee_MinistryofEducation" FromRole="Employee" ToRole="EduMinistry" />
+          <NavigationProperty Name="EduProvince" Relationship="EVEModel.FK_Employee_EduProvince" FromRole="Employee" ToRole="EduProvince" />
+          <NavigationProperty Name="School" Relationship="EVEModel.FK_Employee_School" FromRole="Employee" ToRole="School" />
+          <NavigationProperty Name="SchoolDepartment" Relationship="EVEModel.FK_Employee_SchoolDepartment" FromRole="Employee" ToRole="SchoolDepartment" />
+          <NavigationProperty Name="UserGroup" Relationship="EVEModel.FK_Employee_UserGroup" FromRole="Employee" ToRole="UserGroup" />
+          <NavigationProperty Name="EvalMasters" Relationship="EVEModel.FK_EvalMaster_Employee" FromRole="Employee" ToRole="EvalMaster" />
+          <NavigationProperty Name="EvalMasters1" Relationship="EVEModel.FK_EvalMaster_Employee1" FromRole="Employee" ToRole="EvalMaster" />
+          <NavigationProperty Name="UserGroup_Employee" Relationship="EVEModel.FK_UserGroup_Employee_Employee" FromRole="Employee" ToRole="UserGroup_Employee" />
+        </EntityType>
+        <Association Name="FK_Employee_EduDepartment">
+          <End Type="EVEModel.EduDepartment" Role="EduDepartment" Multiplicity="0..1" />
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EduDepartment">
+              <PropertyRef Name="EduDepartmentId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EduDepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_EduLevel">
+          <End Type="EVEModel.EduLevel" Role="EduLevel" Multiplicity="0..1" />
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EduLevel">
+              <PropertyRef Name="EduLevelCode" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EduLevelCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_MinistryofEducation">
+          <End Type="EVEModel.EduMinistry" Role="EduMinistry" Multiplicity="0..1" />
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EduMinistry">
+              <PropertyRef Name="EduMinistryCode" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="MinistryofEducationaCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_EduProvince">
+          <End Type="EVEModel.EduProvince" Role="EduProvince" Multiplicity="0..1" />
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EduProvince">
+              <PropertyRef Name="EduProvinceId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="EduProvinceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_School">
+          <End Type="EVEModel.School" Role="School" Multiplicity="0..1" />
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="SchoolId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_SchoolDepartment">
+          <End Type="EVEModel.SchoolDepartment" Role="SchoolDepartment" Multiplicity="0..1" />
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolDepartment">
+              <PropertyRef Name="SchoolDepartmentId" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="SchoolDepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_UserGroup">
+          <End Type="EVEModel.UserGroup" Role="UserGroup" Multiplicity="0..1" />
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserGroup">
+              <PropertyRef Name="UserGroupCode" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserGroupCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EvalMaster_Employee">
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EvalMaster">
+              <PropertyRef Name="BeEvalEmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EvalMaster_Employee1">
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EvalMaster">
+              <PropertyRef Name="EvalEmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserGroup_Employee_Employee">
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="EVEModel.UserGroup_Employee" Role="UserGroup_Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="UserGroup_Employee">
+              <PropertyRef Name="EmployeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2423,33 +2459,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="EVEModel.Employee">
-              <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="SchoolDepartmentId" ColumnName="SchoolDepartmentId" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="PositionCode" ColumnName="PositionCode" />
-                <ScalarProperty Name="EduLevelCode" ColumnName="EduLevelCode" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
-                <ScalarProperty Name="EduDepartmentId" ColumnName="EduDepartmentId" />
-                <ScalarProperty Name="EduProvinceId" ColumnName="EduProvinceId" />
-                <ScalarProperty Name="MinistryofEducationaCode" ColumnName="MinistryofEducationaCode" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SchoolDepartments">
             <EntityTypeMapping TypeName="EVEModel.SchoolDepartment">
               <MappingFragment StoreEntitySet="SchoolDepartment">
@@ -2483,6 +2492,34 @@
                 <ScalarProperty Name="EvalCriteriaCode" ColumnName="EvalCriteriaCode" />
                 <ScalarProperty Name="EvalStandardId" ColumnName="EvalStandardId" />
                 <ScalarProperty Name="EvalCriteriaId" ColumnName="EvalCriteriaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="EVEModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="UserGroupCode" ColumnName="UserGroupCode" />
+                <ScalarProperty Name="SchoolDepartmentId" ColumnName="SchoolDepartmentId" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="PositionCode" ColumnName="PositionCode" />
+                <ScalarProperty Name="EduLevelCode" ColumnName="EduLevelCode" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+                <ScalarProperty Name="EduDepartmentId" ColumnName="EduDepartmentId" />
+                <ScalarProperty Name="EduProvinceId" ColumnName="EduProvinceId" />
+                <ScalarProperty Name="MinistryofEducationaCode" ColumnName="MinistryofEducationaCode" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="EmployeeCode" ColumnName="EmployeeCode" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

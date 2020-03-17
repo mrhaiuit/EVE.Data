@@ -43,6 +43,7 @@ namespace EVE.Data
         public Nullable<System.DateTime> CreateDate { get; set; }
         public Nullable<int> CreateBy { get; set; }
         public Nullable<int> SchoolDepartmentId { get; set; }
+        public string UserGroupCode { get; set; }
     
         public virtual EduDepartment EduDepartment { get; set; }
         public virtual EduLevel EduLevel { get; set; }
@@ -50,6 +51,7 @@ namespace EVE.Data
         public virtual EduProvince EduProvince { get; set; }
         public virtual School School { get; set; }
         public virtual SchoolDepartment SchoolDepartment { get; set; }
+        public virtual UserGroup UserGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvalMaster> EvalMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

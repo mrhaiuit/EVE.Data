@@ -19,6 +19,7 @@ namespace EVE.Data
         {
             this.UserGroup_Employee = new HashSet<UserGroup_Employee>();
             this.UserGroup_Form = new HashSet<UserGroup_Form>();
+            this.Employees = new HashSet<Employee>();
         }
     
         public string UserGroupCode { get; set; }
@@ -31,5 +32,7 @@ namespace EVE.Data
         public virtual ICollection<UserGroup_Employee> UserGroup_Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserGroup_Form> UserGroup_Form { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }
