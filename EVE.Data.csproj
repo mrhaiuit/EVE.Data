@@ -177,6 +177,12 @@
     <Compile Include="usp_GetPeriodByYearAndSchool_Result.cs">
       <DependentUpon>EVEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_rpt_BM02_Result.cs">
+      <DependentUpon>EVEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_rpt_BM04_Result.cs">
+      <DependentUpon>EVEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Ward.cs">
       <DependentUpon>EVEModel.tt</DependentUpon>
     </Compile>

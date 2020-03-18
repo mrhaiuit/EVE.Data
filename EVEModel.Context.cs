@@ -74,5 +74,31 @@ namespace EVE.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetPeriodByYearAndSchool_Result>("usp_GetPeriodByYearAndSchool", yearParameter, schoolIdParameter, evalTypeCodeParameter).ToList();
         }
+    
+        public virtual List<usp_rpt_BM02_Result> usp_rpt_BM02(Nullable<int> periodId, Nullable<int> employeeId)
+        {
+            var periodIdParameter = periodId.HasValue ?
+                new ObjectParameter("periodId", periodId) :
+                new ObjectParameter("periodId", typeof(int));
+    
+            var employeeIdParameter = employeeId.HasValue ?
+                new ObjectParameter("employeeId", employeeId) :
+                new ObjectParameter("employeeId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_rpt_BM02_Result>("usp_rpt_BM02", periodIdParameter, employeeIdParameter).ToList();
+        }
+    
+        public virtual List<usp_rpt_BM04_Result> usp_rpt_BM04(Nullable<int> schoolId, Nullable<int> periodId)
+        {
+            var schoolIdParameter = schoolId.HasValue ?
+                new ObjectParameter("schoolId", schoolId) :
+                new ObjectParameter("schoolId", typeof(int));
+    
+            var periodIdParameter = periodId.HasValue ?
+                new ObjectParameter("periodId", periodId) :
+                new ObjectParameter("periodId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_rpt_BM04_Result>("usp_rpt_BM04", schoolIdParameter, periodIdParameter).ToList();
+        }
     }
 }

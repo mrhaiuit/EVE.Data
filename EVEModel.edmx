@@ -830,6 +830,14 @@
           <Parameter Name="schoolId" Type="int" Mode="In" />
           <Parameter Name="evalTypeCode" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_rpt_BM02" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="periodId" Type="int" Mode="In" />
+          <Parameter Name="employeeId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_rpt_BM04" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="schoolId" Type="int" Mode="In" />
+          <Parameter Name="periodId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="EVEModelStoreContainer">
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
@@ -1703,6 +1711,14 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="UserGroup_Employee" EntitySet="UserGroup_Employee" />
           </AssociationSet>
+          <FunctionImport Name="usp_rpt_BM02" ReturnType="Collection(EVEModel.usp_rpt_BM02_Result)">
+            <Parameter Name="periodId" Mode="In" Type="Int32" />
+            <Parameter Name="employeeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_rpt_BM04" ReturnType="Collection(EVEModel.usp_rpt_BM04_Result)">
+            <Parameter Name="schoolId" Mode="In" Type="Int32" />
+            <Parameter Name="periodId" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Position">
           <Key>
@@ -2157,6 +2173,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="usp_rpt_BM02_Result">
+          <Property Type="String" Name="EvalStandardName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="EvalCriteriaName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="EvalResultName" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_rpt_BM04_Result">
+          <Property Type="Int64" Name="Idx" Nullable="true" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC1" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC2" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC3" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC4" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC5" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC6" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC7" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC8" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC9" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC10" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC11" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC12" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC13" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC14" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TC15" Nullable="true" MaxLength="500" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2523,6 +2564,39 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_rpt_BM02" FunctionName="EVEModel.Store.usp_rpt_BM02">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EVEModel.usp_rpt_BM02_Result">
+                <ScalarProperty Name="EvalStandardName" ColumnName="EvalStandardName" />
+                <ScalarProperty Name="EvalCriteriaName" ColumnName="EvalCriteriaName" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EvalResultName" ColumnName="EvalResultName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_rpt_BM04" FunctionName="EVEModel.Store.usp_rpt_BM04">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EVEModel.usp_rpt_BM04_Result">
+                <ScalarProperty Name="Idx" ColumnName="Idx" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="TC1" ColumnName="TC1" />
+                <ScalarProperty Name="TC2" ColumnName="TC2" />
+                <ScalarProperty Name="TC3" ColumnName="TC3" />
+                <ScalarProperty Name="TC4" ColumnName="TC4" />
+                <ScalarProperty Name="TC5" ColumnName="TC5" />
+                <ScalarProperty Name="TC6" ColumnName="TC6" />
+                <ScalarProperty Name="TC7" ColumnName="TC7" />
+                <ScalarProperty Name="TC8" ColumnName="TC8" />
+                <ScalarProperty Name="TC9" ColumnName="TC9" />
+                <ScalarProperty Name="TC10" ColumnName="TC10" />
+                <ScalarProperty Name="TC11" ColumnName="TC11" />
+                <ScalarProperty Name="TC12" ColumnName="TC12" />
+                <ScalarProperty Name="TC13" ColumnName="TC13" />
+                <ScalarProperty Name="TC14" ColumnName="TC14" />
+                <ScalarProperty Name="TC15" ColumnName="TC15" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
