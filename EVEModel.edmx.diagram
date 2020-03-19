@@ -52,15 +52,11 @@
         <AssociationConnector Association="EVEModel.FK_School_EduProvince" />
         <AssociationConnector Association="EVEModel.FK_School_SchoolLevel" />
         <AssociationConnector Association="EVEModel.FK_UserGroup_Employee_School" />
-        <EntityTypeShape EntityType="EVEModel.EvalMaster" Width="1.5" PointX="20.25" PointY="4.75" />
         <EntityTypeShape EntityType="EVEModel.EvalPeriod" Width="1.5" PointX="18" PointY="18.125" />
-        <AssociationConnector Association="EVEModel.FK_EvalMaster_EvalPeriod" />
-        <AssociationConnector Association="EVEModel.FK_EvalMaster_EvalState" />
         <AssociationConnector Association="EVEModel.FK_EvalPeriod_EvalType" />
         <EntityTypeShape EntityType="EVEModel.SchoolDepartment" Width="1.5" PointX="15" PointY="20.5" />
         <AssociationConnector Association="EVEModel.FK_SchoolDepartment_School" />
         <EntityTypeShape EntityType="EVEModel.EvalDetail" Width="1.5" PointX="22.5" PointY="10.75" />
-        <AssociationConnector Association="EVEModel.FK_EvalDetail_EvalMaster" />
         <EntityTypeShape EntityType="EVEModel.EvalCriteria" Width="1.5" PointX="20.25" PointY="11.125" />
         <AssociationConnector Association="EVEModel.FK_EvalCriteria_EvalStandard" />
         <AssociationConnector Association="EVEModel.FK_EvalDetail_EvalCriteria" />
@@ -73,9 +69,13 @@
         <AssociationConnector Association="EVEModel.FK_Employee_School" />
         <AssociationConnector Association="EVEModel.FK_Employee_SchoolDepartment" />
         <AssociationConnector Association="EVEModel.FK_Employee_UserGroup" />
+        <AssociationConnector Association="EVEModel.FK_UserGroup_Employee_Employee" />
+        <EntityTypeShape EntityType="EVEModel.EvalMaster" Width="1.5" PointX="23.25" PointY="15.625" />
         <AssociationConnector Association="EVEModel.FK_EvalMaster_Employee" />
         <AssociationConnector Association="EVEModel.FK_EvalMaster_Employee1" />
-        <AssociationConnector Association="EVEModel.FK_UserGroup_Employee_Employee" />
+        <AssociationConnector Association="EVEModel.FK_EvalDetail_EvalMaster" />
+        <AssociationConnector Association="EVEModel.FK_EvalMaster_EvalPeriod" />
+        <AssociationConnector Association="EVEModel.FK_EvalMaster_EvalState" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

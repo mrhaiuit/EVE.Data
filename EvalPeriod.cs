@@ -29,8 +29,8 @@ namespace EVE.Data
         public Nullable<int> SchoolId { get; set; }
         public string Remark { get; set; }
     
+        public virtual EvalType EvalType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvalMaster> EvalMasters { get; set; }
-        public virtual EvalType EvalType { get; set; }
     }
 }

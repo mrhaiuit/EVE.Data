@@ -132,6 +132,8 @@
           <Property Name="EvalPeriodId" Type="int" />
           <Property Name="BeEvalEmployeeId" Type="int" />
           <Property Name="EvalEmployeeId" Type="int" />
+          <Property Name="IsFinal" Type="bit" />
+          <Property Name="IsForDepartment" Type="bit" />
           <Property Name="CreateBy" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateBy" Type="int" />
@@ -1628,16 +1630,7 @@
             <End Role="School" EntitySet="Schools" />
             <End Role="UserGroup_Employee" EntitySet="UserGroup_Employee" />
           </AssociationSet>
-          <EntitySet Name="EvalMasters" EntityType="EVEModel.EvalMaster" />
           <EntitySet Name="EvalPeriods" EntityType="EVEModel.EvalPeriod" />
-          <AssociationSet Name="FK_EvalMaster_EvalPeriod" Association="EVEModel.FK_EvalMaster_EvalPeriod">
-            <End Role="EvalPeriod" EntitySet="EvalPeriods" />
-            <End Role="EvalMaster" EntitySet="EvalMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EvalMaster_EvalState" Association="EVEModel.FK_EvalMaster_EvalState">
-            <End Role="EvalState" EntitySet="EvalStates" />
-            <End Role="EvalMaster" EntitySet="EvalMasters" />
-          </AssociationSet>
           <AssociationSet Name="FK_EvalPeriod_EvalType" Association="EVEModel.FK_EvalPeriod_EvalType">
             <End Role="EvalType" EntitySet="EvalTypes" />
             <End Role="EvalPeriod" EntitySet="EvalPeriods" />
@@ -1653,10 +1646,6 @@
             <End Role="SchoolDepartment" EntitySet="SchoolDepartments" />
           </AssociationSet>
           <EntitySet Name="EvalDetails" EntityType="EVEModel.EvalDetail" />
-          <AssociationSet Name="FK_EvalDetail_EvalMaster" Association="EVEModel.FK_EvalDetail_EvalMaster">
-            <End Role="EvalMaster" EntitySet="EvalMasters" />
-            <End Role="EvalDetail" EntitySet="EvalDetails" />
-          </AssociationSet>
           <EntitySet Name="EvalCriterias" EntityType="EVEModel.EvalCriteria" />
           <AssociationSet Name="FK_EvalCriteria_EvalStandard" Association="EVEModel.FK_EvalCriteria_EvalStandard">
             <End Role="EvalStandard" EntitySet="EvalStandards" />
@@ -1699,14 +1688,6 @@
             <End Role="UserGroup" EntitySet="UserGroups" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
-          <AssociationSet Name="FK_EvalMaster_Employee" Association="EVEModel.FK_EvalMaster_Employee">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="EvalMaster" EntitySet="EvalMasters" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EvalMaster_Employee1" Association="EVEModel.FK_EvalMaster_Employee1">
-            <End Role="Employee" EntitySet="Employees" />
-            <End Role="EvalMaster" EntitySet="EvalMasters" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserGroup_Employee_Employee" Association="EVEModel.FK_UserGroup_Employee_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="UserGroup_Employee" EntitySet="UserGroup_Employee" />
@@ -1719,6 +1700,27 @@
             <Parameter Name="schoolId" Mode="In" Type="Int32" />
             <Parameter Name="periodId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="EvalMasters" EntityType="EVEModel.EvalMaster" />
+          <AssociationSet Name="FK_EvalMaster_Employee" Association="EVEModel.FK_EvalMaster_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EvalMaster" EntitySet="EvalMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EvalMaster_Employee1" Association="EVEModel.FK_EvalMaster_Employee1">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="EvalMaster" EntitySet="EvalMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EvalDetail_EvalMaster" Association="EVEModel.FK_EvalDetail_EvalMaster">
+            <End Role="EvalMaster" EntitySet="EvalMasters" />
+            <End Role="EvalDetail" EntitySet="EvalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EvalMaster_EvalPeriod" Association="EVEModel.FK_EvalMaster_EvalPeriod">
+            <End Role="EvalPeriod" EntitySet="EvalPeriods" />
+            <End Role="EvalMaster" EntitySet="EvalMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EvalMaster_EvalState" Association="EVEModel.FK_EvalMaster_EvalState">
+            <End Role="EvalState" EntitySet="EvalStates" />
+            <End Role="EvalMaster" EntitySet="EvalMasters" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Position">
           <Key>
@@ -1827,26 +1829,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="EvalMaster">
-          <Key>
-            <PropertyRef Name="EvalMasterId" />
-          </Key>
-          <Property Name="EvalMasterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="EvalStateCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EvalPeriodId" Type="Int32" />
-          <Property Name="BeEvalEmployeeId" Type="Int32" />
-          <Property Name="EvalEmployeeId" Type="Int32" />
-          <Property Name="CreateBy" Type="Int32" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdateBy" Type="Int32" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="EvalPeriod" Relationship="EVEModel.FK_EvalMaster_EvalPeriod" FromRole="EvalMaster" ToRole="EvalPeriod" />
-          <NavigationProperty Name="EvalState" Relationship="EVEModel.FK_EvalMaster_EvalState" FromRole="EvalMaster" ToRole="EvalState" />
-          <NavigationProperty Name="EvalDetails" Relationship="EVEModel.FK_EvalDetail_EvalMaster" FromRole="EvalMaster" ToRole="EvalDetail" />
-          <NavigationProperty Name="Employee" Relationship="EVEModel.FK_EvalMaster_Employee" FromRole="EvalMaster" ToRole="Employee" />
-          <NavigationProperty Name="Employee1" Relationship="EVEModel.FK_EvalMaster_Employee1" FromRole="EvalMaster" ToRole="Employee" />
-        </EntityType>
         <EntityType Name="EvalPeriod">
           <Key>
             <PropertyRef Name="EvalPeriodId" />
@@ -1859,33 +1841,9 @@
           <Property Name="ToDate" Type="DateTime" Precision="3" />
           <Property Name="SchoolId" Type="Int32" />
           <Property Name="Remark" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="EvalMasters" Relationship="EVEModel.FK_EvalMaster_EvalPeriod" FromRole="EvalPeriod" ToRole="EvalMaster" />
           <NavigationProperty Name="EvalType" Relationship="EVEModel.FK_EvalPeriod_EvalType" FromRole="EvalPeriod" ToRole="EvalType" />
+          <NavigationProperty Name="EvalMasters" Relationship="EVEModel.FK_EvalMaster_EvalPeriod" FromRole="EvalPeriod" ToRole="EvalMaster" />
         </EntityType>
-        <Association Name="FK_EvalMaster_EvalPeriod">
-          <End Type="EVEModel.EvalPeriod" Role="EvalPeriod" Multiplicity="0..1" />
-          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EvalPeriod">
-              <PropertyRef Name="EvalPeriodId" />
-            </Principal>
-            <Dependent Role="EvalMaster">
-              <PropertyRef Name="EvalPeriodId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EvalMaster_EvalState">
-          <End Type="EVEModel.EvalState" Role="EvalState" Multiplicity="0..1" />
-          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EvalState">
-              <PropertyRef Name="EvalStateCode" />
-            </Principal>
-            <Dependent Role="EvalMaster">
-              <PropertyRef Name="EvalStateCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EvalPeriod_EvalType">
           <End Type="EVEModel.EvalType" Role="EvalType" Multiplicity="0..1" />
           <End Type="EVEModel.EvalPeriod" Role="EvalPeriod" Multiplicity="*" />
@@ -1949,21 +1907,9 @@
           <Property Name="EvalResultCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Sample" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Attachment" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="EvalMaster" Relationship="EVEModel.FK_EvalDetail_EvalMaster" FromRole="EvalDetail" ToRole="EvalMaster" />
           <NavigationProperty Name="EvalCriteria" Relationship="EVEModel.FK_EvalDetail_EvalCriteria" FromRole="EvalDetail" ToRole="EvalCriteria" />
+          <NavigationProperty Name="EvalMaster" Relationship="EVEModel.FK_EvalDetail_EvalMaster" FromRole="EvalDetail" ToRole="EvalMaster" />
         </EntityType>
-        <Association Name="FK_EvalDetail_EvalMaster">
-          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="1" />
-          <End Type="EVEModel.EvalDetail" Role="EvalDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EvalMaster">
-              <PropertyRef Name="EvalMasterId" />
-            </Principal>
-            <Dependent Role="EvalDetail">
-              <PropertyRef Name="EvalMasterId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="EvalCriteria">
           <Key>
             <PropertyRef Name="EvalCriteriaId" />
@@ -2049,9 +1995,9 @@
           <NavigationProperty Name="School" Relationship="EVEModel.FK_Employee_School" FromRole="Employee" ToRole="School" />
           <NavigationProperty Name="SchoolDepartment" Relationship="EVEModel.FK_Employee_SchoolDepartment" FromRole="Employee" ToRole="SchoolDepartment" />
           <NavigationProperty Name="UserGroup" Relationship="EVEModel.FK_Employee_UserGroup" FromRole="Employee" ToRole="UserGroup" />
+          <NavigationProperty Name="UserGroup_Employee" Relationship="EVEModel.FK_UserGroup_Employee_Employee" FromRole="Employee" ToRole="UserGroup_Employee" />
           <NavigationProperty Name="EvalMasters" Relationship="EVEModel.FK_EvalMaster_Employee" FromRole="Employee" ToRole="EvalMaster" />
           <NavigationProperty Name="EvalMasters1" Relationship="EVEModel.FK_EvalMaster_Employee1" FromRole="Employee" ToRole="EvalMaster" />
-          <NavigationProperty Name="UserGroup_Employee" Relationship="EVEModel.FK_UserGroup_Employee_Employee" FromRole="Employee" ToRole="UserGroup_Employee" />
         </EntityType>
         <Association Name="FK_Employee_EduDepartment">
           <End Type="EVEModel.EduDepartment" Role="EduDepartment" Multiplicity="0..1" />
@@ -2137,30 +2083,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EvalMaster_Employee">
-          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="0..1" />
-          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeId" />
-            </Principal>
-            <Dependent Role="EvalMaster">
-              <PropertyRef Name="BeEvalEmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EvalMaster_Employee1">
-          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="0..1" />
-          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employee">
-              <PropertyRef Name="EmployeeId" />
-            </Principal>
-            <Dependent Role="EvalMaster">
-              <PropertyRef Name="EvalEmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserGroup_Employee_Employee">
           <End Type="EVEModel.Employee" Role="Employee" Multiplicity="1" />
           <End Type="EVEModel.UserGroup_Employee" Role="UserGroup_Employee" Multiplicity="*" />
@@ -2198,6 +2120,88 @@
           <Property Type="String" Name="TC14" Nullable="true" MaxLength="500" />
           <Property Type="String" Name="TC15" Nullable="true" MaxLength="500" />
         </ComplexType>
+        <EntityType Name="EvalMaster">
+          <Key>
+            <PropertyRef Name="EvalMasterId" />
+          </Key>
+          <Property Name="EvalMasterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Remark" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="EvalStateCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EvalPeriodId" Type="Int32" />
+          <Property Name="BeEvalEmployeeId" Type="Int32" />
+          <Property Name="EvalEmployeeId" Type="Int32" />
+          <Property Name="IsFinal" Type="Boolean" />
+          <Property Name="IsForDepartment" Type="Boolean" />
+          <Property Name="CreateBy" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateBy" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="EVEModel.FK_EvalMaster_Employee" FromRole="EvalMaster" ToRole="Employee" />
+          <NavigationProperty Name="Employee1" Relationship="EVEModel.FK_EvalMaster_Employee1" FromRole="EvalMaster" ToRole="Employee" />
+          <NavigationProperty Name="EvalDetails" Relationship="EVEModel.FK_EvalDetail_EvalMaster" FromRole="EvalMaster" ToRole="EvalDetail" />
+          <NavigationProperty Name="EvalPeriod" Relationship="EVEModel.FK_EvalMaster_EvalPeriod" FromRole="EvalMaster" ToRole="EvalPeriod" />
+          <NavigationProperty Name="EvalState" Relationship="EVEModel.FK_EvalMaster_EvalState" FromRole="EvalMaster" ToRole="EvalState" />
+        </EntityType>
+        <Association Name="FK_EvalMaster_Employee">
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EvalMaster">
+              <PropertyRef Name="BeEvalEmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EvalMaster_Employee1">
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="EvalMaster">
+              <PropertyRef Name="EvalEmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EvalDetail_EvalMaster">
+          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="1" />
+          <End Type="EVEModel.EvalDetail" Role="EvalDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EvalMaster">
+              <PropertyRef Name="EvalMasterId" />
+            </Principal>
+            <Dependent Role="EvalDetail">
+              <PropertyRef Name="EvalMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EvalMaster_EvalPeriod">
+          <End Type="EVEModel.EvalPeriod" Role="EvalPeriod" Multiplicity="0..1" />
+          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EvalPeriod">
+              <PropertyRef Name="EvalPeriodId" />
+            </Principal>
+            <Dependent Role="EvalMaster">
+              <PropertyRef Name="EvalPeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EvalMaster_EvalState">
+          <End Type="EVEModel.EvalState" Role="EvalState" Multiplicity="0..1" />
+          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EvalState">
+              <PropertyRef Name="EvalStateCode" />
+            </Principal>
+            <Dependent Role="EvalMaster">
+              <PropertyRef Name="EvalStateCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2450,22 +2454,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EvalMasters">
-            <EntityTypeMapping TypeName="EVEModel.EvalMaster">
-              <MappingFragment StoreEntitySet="EvalMaster">
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
-                <ScalarProperty Name="EvalEmployeeId" ColumnName="EvalEmployeeId" />
-                <ScalarProperty Name="BeEvalEmployeeId" ColumnName="BeEvalEmployeeId" />
-                <ScalarProperty Name="EvalPeriodId" ColumnName="EvalPeriodId" />
-                <ScalarProperty Name="EvalStateCode" ColumnName="EvalStateCode" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="EvalMasterId" ColumnName="EvalMasterId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="EvalPeriods">
             <EntityTypeMapping TypeName="EVEModel.EvalPeriod">
               <MappingFragment StoreEntitySet="EvalPeriod">
@@ -2597,6 +2585,24 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="EvalMasters">
+            <EntityTypeMapping TypeName="EVEModel.EvalMaster">
+              <MappingFragment StoreEntitySet="EvalMaster">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="IsForDepartment" ColumnName="IsForDepartment" />
+                <ScalarProperty Name="IsFinal" ColumnName="IsFinal" />
+                <ScalarProperty Name="EvalEmployeeId" ColumnName="EvalEmployeeId" />
+                <ScalarProperty Name="BeEvalEmployeeId" ColumnName="BeEvalEmployeeId" />
+                <ScalarProperty Name="EvalPeriodId" ColumnName="EvalPeriodId" />
+                <ScalarProperty Name="EvalStateCode" ColumnName="EvalStateCode" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="EvalMasterId" ColumnName="EvalMasterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
