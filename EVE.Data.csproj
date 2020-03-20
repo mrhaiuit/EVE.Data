@@ -183,6 +183,9 @@
     <Compile Include="usp_rpt_BM04_Result.cs">
       <DependentUpon>EVEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_rpt_BM05_Result.cs">
+      <DependentUpon>EVEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Ward.cs">
       <DependentUpon>EVEModel.tt</DependentUpon>
     </Compile>

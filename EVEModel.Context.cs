@@ -100,5 +100,14 @@ namespace EVE.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_rpt_BM04_Result>("usp_rpt_BM04", schoolIdParameter, periodIdParameter).ToList();
         }
+    
+        public virtual List<usp_rpt_BM05_Result> usp_rpt_BM05(Nullable<int> evalPeriodId)
+        {
+            var evalPeriodIdParameter = evalPeriodId.HasValue ?
+                new ObjectParameter("evalPeriodId", evalPeriodId) :
+                new ObjectParameter("evalPeriodId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_rpt_BM05_Result>("usp_rpt_BM05", evalPeriodIdParameter).ToList();
+        }
     }
 }

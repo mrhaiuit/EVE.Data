@@ -134,6 +134,7 @@
           <Property Name="EvalEmployeeId" Type="int" />
           <Property Name="IsFinal" Type="bit" />
           <Property Name="IsForDepartment" Type="bit" />
+          <Property Name="EvalResultCode" Type="varchar" MaxLength="50" />
           <Property Name="CreateBy" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="UpdateBy" Type="int" />
@@ -839,6 +840,9 @@
         <Function Name="usp_rpt_BM04" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="schoolId" Type="int" Mode="In" />
           <Parameter Name="periodId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_rpt_BM05" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="evalPeriodId" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="EVEModelStoreContainer">
           <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
@@ -1721,6 +1725,9 @@
             <End Role="EvalState" EntitySet="EvalStates" />
             <End Role="EvalMaster" EntitySet="EvalMasters" />
           </AssociationSet>
+          <FunctionImport Name="usp_rpt_BM05" ReturnType="Collection(EVEModel.usp_rpt_BM05_Result)">
+            <Parameter Name="evalPeriodId" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Position">
           <Key>
@@ -2141,6 +2148,7 @@
           <NavigationProperty Name="EvalDetails" Relationship="EVEModel.FK_EvalDetail_EvalMaster" FromRole="EvalMaster" ToRole="EvalDetail" />
           <NavigationProperty Name="EvalPeriod" Relationship="EVEModel.FK_EvalMaster_EvalPeriod" FromRole="EvalMaster" ToRole="EvalPeriod" />
           <NavigationProperty Name="EvalState" Relationship="EVEModel.FK_EvalMaster_EvalState" FromRole="EvalMaster" ToRole="EvalState" />
+          <Property Name="EvalResultCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_EvalMaster_Employee">
           <End Type="EVEModel.Employee" Role="Employee" Multiplicity="0..1" />
@@ -2202,6 +2210,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="usp_rpt_BM05_Result">
+          <Property Type="Int32" Name="SumType" Nullable="false" />
+          <Property Type="Int32" Name="Total" Nullable="true" />
+          <Property Type="Int32" Name="SLCD" Nullable="true" />
+          <Property Type="Int32" Name="SLD" Nullable="true" />
+          <Property Type="Int32" Name="SLK" Nullable="true" />
+          <Property Type="Int32" Name="SLT" Nullable="true" />
+          <Property Type="Int32" Name="TLCD" Nullable="true" />
+          <Property Type="Int32" Name="TLD" Nullable="true" />
+          <Property Type="Int32" Name="TLK" Nullable="true" />
+          <Property Type="Int32" Name="TLT" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2588,6 +2608,7 @@
           <EntitySetMapping Name="EvalMasters">
             <EntityTypeMapping TypeName="EVEModel.EvalMaster">
               <MappingFragment StoreEntitySet="EvalMaster">
+                <ScalarProperty Name="EvalResultCode" ColumnName="EvalResultCode" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
@@ -2603,6 +2624,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_rpt_BM05" FunctionName="EVEModel.Store.usp_rpt_BM05">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EVEModel.usp_rpt_BM05_Result">
+                <ScalarProperty Name="SumType" ColumnName="SumType" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="SLCD" ColumnName="SLCD" />
+                <ScalarProperty Name="SLD" ColumnName="SLD" />
+                <ScalarProperty Name="SLK" ColumnName="SLK" />
+                <ScalarProperty Name="SLT" ColumnName="SLT" />
+                <ScalarProperty Name="TLCD" ColumnName="TLCD" />
+                <ScalarProperty Name="TLD" ColumnName="TLD" />
+                <ScalarProperty Name="TLK" ColumnName="TLK" />
+                <ScalarProperty Name="TLT" ColumnName="TLT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
