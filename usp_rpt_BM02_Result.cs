@@ -13,6 +13,10 @@ namespace EVE.Data
     
     public partial class usp_rpt_BM02_Result
     {
+        public int EvalCriteriaId { get; set; }
+        public Nullable<int> EvalStandardId { get; set; }
+        public Nullable<int> EvalEmployeeId { get; set; }
+        public Nullable<int> BeEvalEmployeeId { get; set; }
         public string EvalStandardName { get; set; }
         public string EvalCriteriaName { get; set; }
         public string EmployeeName { get; set; }

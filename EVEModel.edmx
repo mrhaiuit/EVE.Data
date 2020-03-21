@@ -1696,10 +1696,6 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="UserGroup_Employee" EntitySet="UserGroup_Employee" />
           </AssociationSet>
-          <FunctionImport Name="usp_rpt_BM02" ReturnType="Collection(EVEModel.usp_rpt_BM02_Result)">
-            <Parameter Name="periodId" Mode="In" Type="Int32" />
-            <Parameter Name="employeeId" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_rpt_BM04" ReturnType="Collection(EVEModel.usp_rpt_BM04_Result)">
             <Parameter Name="schoolId" Mode="In" Type="Int32" />
             <Parameter Name="periodId" Mode="In" Type="Int32" />
@@ -1726,7 +1722,11 @@
             <End Role="EvalMaster" EntitySet="EvalMasters" />
           </AssociationSet>
           <FunctionImport Name="usp_rpt_BM05" ReturnType="Collection(EVEModel.usp_rpt_BM05_Result)">
-            <Parameter Name="evalPeriodId" Mode="In" Type="Int32" />
+          <Parameter Name="evalPeriodId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_rpt_BM02" ReturnType="Collection(EVEModel.usp_rpt_BM02_Result)">
+            <Parameter Name="periodId" Mode="In" Type="Int32" />
+            <Parameter Name="employeeId" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="Position">
@@ -2102,12 +2102,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="usp_rpt_BM02_Result">
-          <Property Type="String" Name="EvalStandardName" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="EvalCriteriaName" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="EvalResultName" Nullable="true" MaxLength="500" />
-        </ComplexType>
         <ComplexType Name="usp_rpt_BM04_Result">
           <Property Type="Int64" Name="Idx" Nullable="true" />
           <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="500" />
@@ -2221,6 +2215,16 @@
           <Property Type="Int32" Name="TLD" Nullable="true" />
           <Property Type="Int32" Name="TLK" Nullable="true" />
           <Property Type="Int32" Name="TLT" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_rpt_BM02_Result">
+          <Property Type="Int32" Name="EvalCriteriaId" Nullable="false" />
+          <Property Type="Int32" Name="EvalStandardId" Nullable="true" />
+          <Property Type="Int32" Name="EvalEmployeeId" Nullable="true" />
+          <Property Type="Int32" Name="BeEvalEmployeeId" Nullable="true" />
+          <Property Type="String" Name="EvalStandardName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="EvalCriteriaName" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="EvalResultName" Nullable="true" MaxLength="500" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2572,16 +2576,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_rpt_BM02" FunctionName="EVEModel.Store.usp_rpt_BM02">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="EVEModel.usp_rpt_BM02_Result">
-                <ScalarProperty Name="EvalStandardName" ColumnName="EvalStandardName" />
-                <ScalarProperty Name="EvalCriteriaName" ColumnName="EvalCriteriaName" />
-                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
-                <ScalarProperty Name="EvalResultName" ColumnName="EvalResultName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_rpt_BM04" FunctionName="EVEModel.Store.usp_rpt_BM04">
             <ResultMapping>
               <ComplexTypeMapping TypeName="EVEModel.usp_rpt_BM04_Result">
@@ -2637,6 +2631,20 @@
                 <ScalarProperty Name="TLD" ColumnName="TLD" />
                 <ScalarProperty Name="TLK" ColumnName="TLK" />
                 <ScalarProperty Name="TLT" ColumnName="TLT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_rpt_BM02" FunctionName="EVEModel.Store.usp_rpt_BM02">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EVEModel.usp_rpt_BM02_Result">
+                <ScalarProperty Name="EvalCriteriaId" ColumnName="EvalCriteriaId" />
+                <ScalarProperty Name="EvalStandardId" ColumnName="EvalStandardId" />
+                <ScalarProperty Name="EvalEmployeeId" ColumnName="EvalEmployeeId" />
+                <ScalarProperty Name="BeEvalEmployeeId" ColumnName="BeEvalEmployeeId" />
+                <ScalarProperty Name="EvalStandardName" ColumnName="EvalStandardName" />
+                <ScalarProperty Name="EvalCriteriaName" ColumnName="EvalCriteriaName" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EvalResultName" ColumnName="EvalResultName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
