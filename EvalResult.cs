@@ -17,7 +17,7 @@ namespace EVE.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EvalResult()
         {
-            this.EvalGuides = new HashSet<EvalGuide>();
+          //  this.EvalGuides = new HashSet<EvalGuide>();
         }
     
         public string EvalResultCode { get; set; }
@@ -25,7 +25,7 @@ namespace EVE.Data
         public string Remark { get; set; }
         public Nullable<int> Idx { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EvalGuide> EvalGuides { get; set; }
+      //  [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+     //   public virtual ICollection<EvalGuide> EvalGuides { get; set; }
     }
 }
