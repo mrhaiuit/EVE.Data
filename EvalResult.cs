@@ -14,18 +14,9 @@ namespace EVE.Data
     
     public partial class EvalResult
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EvalResult()
-        {
-          //  this.EvalGuides = new HashSet<EvalGuide>();
-        }
-    
         public string EvalResultCode { get; set; }
         public string EvalResultName { get; set; }
         public string Remark { get; set; }
         public Nullable<int> Idx { get; set; }
-    
-      //  [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-     //   public virtual ICollection<EvalGuide> EvalGuides { get; set; }
     }
 }

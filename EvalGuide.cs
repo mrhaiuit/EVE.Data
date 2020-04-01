@@ -19,7 +19,6 @@ namespace EVE.Data
         public string Description { get; set; }
         public string Sample { get; set; }
     
-        public virtual EvalResult EvalResult { get; set; }
         public virtual EvalCriteria EvalCriteria { get; set; }
     }
 }

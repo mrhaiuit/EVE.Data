@@ -34,7 +34,6 @@ namespace EVE.Data
         public virtual DbSet<EduLevel> EduLevels { get; set; }
         public virtual DbSet<EduMinistry> EduMinistries { get; set; }
         public virtual DbSet<EduProvince> EduProvinces { get; set; }
-        public virtual DbSet<EvalGuide> EvalGuides { get; set; }
         public virtual DbSet<EvalResult> EvalResults { get; set; }
         public virtual DbSet<EvalStandard> EvalStandards { get; set; }
         public virtual DbSet<EvalState> EvalStates { get; set; }
@@ -57,6 +56,7 @@ namespace EVE.Data
         public virtual DbSet<EvalCriteria> EvalCriterias { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EvalMaster> EvalMasters { get; set; }
+        public virtual DbSet<EvalGuide> EvalGuides { get; set; }
     
         public virtual List<usp_GetPeriodByYearAndSchool_Result> usp_GetPeriodByYearAndSchool(Nullable<int> year, Nullable<int> schoolId, string evalTypeCode)
         {
