@@ -20,6 +20,7 @@ namespace EVE.Data
             this.EvalMasters = new HashSet<EvalMaster>();
             this.EvalMasters1 = new HashSet<EvalMaster>();
             this.UserGroup_Employee = new HashSet<UserGroup_Employee>();
+            this.SubPrincipalCriterias = new HashSet<SubPrincipalCriteria>();
         }
     
         public int EmployeeId { get; set; }
@@ -59,5 +60,7 @@ namespace EVE.Data
         public virtual ICollection<EvalMaster> EvalMasters1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserGroup_Employee> UserGroup_Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubPrincipalCriteria> SubPrincipalCriterias { get; set; }
     }
 }

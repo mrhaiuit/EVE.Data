@@ -75,6 +75,10 @@
         <AssociationConnector Association="EVEModel.FK_EvalMaster_EvalState" />
         <EntityTypeShape EntityType="EVEModel.EvalGuide" Width="1.5" PointX="22.5" PointY="7.5" />
         <AssociationConnector Association="EVEModel.FK_EvalGuide_EvalCriteria" />
+        <EntityTypeShape EntityType="EVEModel.SubPrincipalCriteria" Width="1.5" PointX="26.25" PointY="16" />
+        <AssociationConnector Association="EVEModel.FK_SubPrincipalCriteria_Employee" />
+        <AssociationConnector Association="EVEModel.FK_SubPrincipalCriteria_EvalCriteria" />
+        <AssociationConnector Association="EVEModel.FK_SubPrincipalCriteria_EvalPeriod" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

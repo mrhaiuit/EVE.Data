@@ -18,6 +18,7 @@ namespace EVE.Data
         public EvalPeriod()
         {
             this.EvalMasters = new HashSet<EvalMaster>();
+            this.SubPrincipalCriterias = new HashSet<SubPrincipalCriteria>();
         }
     
         public int EvalPeriodId { get; set; }
@@ -32,5 +33,7 @@ namespace EVE.Data
         public virtual EvalType EvalType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EvalMaster> EvalMasters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubPrincipalCriteria> SubPrincipalCriterias { get; set; }
     }
 }

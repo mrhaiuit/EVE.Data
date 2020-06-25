@@ -57,6 +57,7 @@ namespace EVE.Data
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EvalMaster> EvalMasters { get; set; }
         public virtual DbSet<EvalGuide> EvalGuides { get; set; }
+        public virtual DbSet<SubPrincipalCriteria> SubPrincipalCriterias { get; set; }
     
         public virtual List<usp_GetPeriodByYearAndSchool_Result> usp_GetPeriodByYearAndSchool(Nullable<int> year, Nullable<int> schoolId, string evalTypeCode)
         {

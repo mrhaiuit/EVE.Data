@@ -281,6 +281,16 @@
           <Property Name="SchoolLevelCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SchoolLevelName" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="SubPrincipalCriteria">
+          <Key>
+            <PropertyRef Name="SubPrincipalId" />
+            <PropertyRef Name="EvalPeriodId" />
+            <PropertyRef Name="EvalCriteriaId" />
+          </Key>
+          <Property Name="SubPrincipalId" Type="int" Nullable="false" />
+          <Property Name="EvalPeriodId" Type="int" Nullable="false" />
+          <Property Name="EvalCriteriaId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -703,6 +713,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubPrincipalCriteria_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="SubPrincipalCriteria" Type="Self.SubPrincipalCriteria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="SubPrincipalCriteria">
+              <PropertyRef Name="SubPrincipalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubPrincipalCriteria_EvalCriteria">
+          <End Role="EvalCriteria" Type="Self.EvalCriteria" Multiplicity="1" />
+          <End Role="SubPrincipalCriteria" Type="Self.SubPrincipalCriteria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EvalCriteria">
+              <PropertyRef Name="EvalCriteriaId" />
+            </Principal>
+            <Dependent Role="SubPrincipalCriteria">
+              <PropertyRef Name="EvalCriteriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubPrincipalCriteria_EvalPeriod">
+          <End Role="EvalPeriod" Type="Self.EvalPeriod" Multiplicity="1" />
+          <End Role="SubPrincipalCriteria" Type="Self.SubPrincipalCriteria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EvalPeriod">
+              <PropertyRef Name="EvalPeriodId" />
+            </Principal>
+            <Dependent Role="SubPrincipalCriteria">
+              <PropertyRef Name="EvalPeriodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserGroup_EduLevel">
           <End Role="EduLevel" Type="Self.EduLevel" Multiplicity="0..1" />
           <End Role="UserGroup" Type="Self.UserGroup" Multiplicity="*" />
@@ -864,6 +910,7 @@
           <EntitySet Name="School" EntityType="Self.School" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SchoolDepartment" EntityType="Self.SchoolDepartment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SchoolLevel" EntityType="Self.SchoolLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubPrincipalCriteria" EntityType="Self.SubPrincipalCriteria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserGroup" EntityType="Self.UserGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserGroup_Employee" EntityType="Self.UserGroup_Employee" Schema="dbo" store:Type="Tables" />
@@ -992,6 +1039,18 @@
           <AssociationSet Name="FK_SchoolDepartment_School" Association="Self.FK_SchoolDepartment_School">
             <End Role="School" EntitySet="School" />
             <End Role="SchoolDepartment" EntitySet="SchoolDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubPrincipalCriteria_Employee" Association="Self.FK_SubPrincipalCriteria_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="SubPrincipalCriteria" EntitySet="SubPrincipalCriteria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubPrincipalCriteria_EvalCriteria" Association="Self.FK_SubPrincipalCriteria_EvalCriteria">
+            <End Role="EvalCriteria" EntitySet="EvalCriteria" />
+            <End Role="SubPrincipalCriteria" EntitySet="SubPrincipalCriteria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubPrincipalCriteria_EvalPeriod" Association="Self.FK_SubPrincipalCriteria_EvalPeriod">
+            <End Role="EvalPeriod" EntitySet="EvalPeriod" />
+            <End Role="SubPrincipalCriteria" EntitySet="SubPrincipalCriteria" />
           </AssociationSet>
           <AssociationSet Name="FK_UserGroup_EduLevel" Association="Self.FK_UserGroup_EduLevel">
             <End Role="EduLevel" EntitySet="EduLevel" />
@@ -1690,6 +1749,19 @@
             <End Role="EvalCriteria" EntitySet="EvalCriterias" />
             <End Role="EvalGuide" EntitySet="EvalGuides" />
           </AssociationSet>
+          <EntitySet Name="SubPrincipalCriterias" EntityType="EVEModel.SubPrincipalCriteria" />
+          <AssociationSet Name="FK_SubPrincipalCriteria_Employee" Association="EVEModel.FK_SubPrincipalCriteria_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="SubPrincipalCriteria" EntitySet="SubPrincipalCriterias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubPrincipalCriteria_EvalCriteria" Association="EVEModel.FK_SubPrincipalCriteria_EvalCriteria">
+            <End Role="EvalCriteria" EntitySet="EvalCriterias" />
+            <End Role="SubPrincipalCriteria" EntitySet="SubPrincipalCriterias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubPrincipalCriteria_EvalPeriod" Association="EVEModel.FK_SubPrincipalCriteria_EvalPeriod">
+            <End Role="EvalPeriod" EntitySet="EvalPeriods" />
+            <End Role="SubPrincipalCriteria" EntitySet="SubPrincipalCriterias" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Position">
           <Key>
@@ -1812,6 +1884,7 @@
           <Property Name="Remark" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EvalType" Relationship="EVEModel.FK_EvalPeriod_EvalType" FromRole="EvalPeriod" ToRole="EvalType" />
           <NavigationProperty Name="EvalMasters" Relationship="EVEModel.FK_EvalMaster_EvalPeriod" FromRole="EvalPeriod" ToRole="EvalMaster" />
+          <NavigationProperty Name="SubPrincipalCriterias" Relationship="EVEModel.FK_SubPrincipalCriteria_EvalPeriod" FromRole="EvalPeriod" ToRole="SubPrincipalCriteria" />
         </EntityType>
         <Association Name="FK_EvalPeriod_EvalType">
           <End Type="EVEModel.EvalType" Role="EvalType" Multiplicity="0..1" />
@@ -1892,6 +1965,7 @@
           <NavigationProperty Name="EvalStandard" Relationship="EVEModel.FK_EvalCriteria_EvalStandard" FromRole="EvalCriteria" ToRole="EvalStandard" />
           <NavigationProperty Name="EvalDetails" Relationship="EVEModel.FK_EvalDetail_EvalCriteria" FromRole="EvalCriteria" ToRole="EvalDetail" />
           <NavigationProperty Name="EvalGuides" Relationship="EVEModel.FK_EvalGuide_EvalCriteria" FromRole="EvalCriteria" ToRole="EvalGuide" />
+          <NavigationProperty Name="SubPrincipalCriterias" Relationship="EVEModel.FK_SubPrincipalCriteria_EvalCriteria" FromRole="EvalCriteria" ToRole="SubPrincipalCriteria" />
         </EntityType>
         <Association Name="FK_EvalCriteria_EvalStandard">
           <End Type="EVEModel.EvalStandard" Role="EvalStandard" Multiplicity="0..1">
@@ -1997,6 +2071,7 @@
           <NavigationProperty Name="EvalMasters" Relationship="EVEModel.FK_EvalMaster_Employee" FromRole="Employee" ToRole="EvalMaster" />
           <NavigationProperty Name="EvalMasters1" Relationship="EVEModel.FK_EvalMaster_Employee1" FromRole="Employee" ToRole="EvalMaster" />
           <NavigationProperty Name="UserGroup_Employee" Relationship="EVEModel.FK_UserGroup_Employee_Employee" FromRole="Employee" ToRole="UserGroup_Employee" />
+          <NavigationProperty Name="SubPrincipalCriterias" Relationship="EVEModel.FK_SubPrincipalCriteria_Employee" FromRole="Employee" ToRole="SubPrincipalCriteria" />
         </EntityType>
         <EntityType Name="EvalMaster">
           <Key>
@@ -2203,6 +2278,55 @@
             </Principal>
             <Dependent Role="EvalGuide">
               <PropertyRef Name="EvalCriteriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SubPrincipalCriteria">
+          <Key>
+            <PropertyRef Name="SubPrincipalId" />
+            <PropertyRef Name="EvalPeriodId" />
+            <PropertyRef Name="EvalCriteriaId" />
+          </Key>
+          <Property Name="SubPrincipalId" Type="Int32" Nullable="false" />
+          <Property Name="EvalPeriodId" Type="Int32" Nullable="false" />
+          <Property Name="EvalCriteriaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="EVEModel.FK_SubPrincipalCriteria_Employee" FromRole="SubPrincipalCriteria" ToRole="Employee" />
+          <NavigationProperty Name="EvalCriteria" Relationship="EVEModel.FK_SubPrincipalCriteria_EvalCriteria" FromRole="SubPrincipalCriteria" ToRole="EvalCriteria" />
+          <NavigationProperty Name="EvalPeriod" Relationship="EVEModel.FK_SubPrincipalCriteria_EvalPeriod" FromRole="SubPrincipalCriteria" ToRole="EvalPeriod" />
+        </EntityType>
+        <Association Name="FK_SubPrincipalCriteria_Employee">
+          <End Type="EVEModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="EVEModel.SubPrincipalCriteria" Role="SubPrincipalCriteria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="SubPrincipalCriteria">
+              <PropertyRef Name="SubPrincipalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubPrincipalCriteria_EvalCriteria">
+          <End Type="EVEModel.EvalCriteria" Role="EvalCriteria" Multiplicity="1" />
+          <End Type="EVEModel.SubPrincipalCriteria" Role="SubPrincipalCriteria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EvalCriteria">
+              <PropertyRef Name="EvalCriteriaId" />
+            </Principal>
+            <Dependent Role="SubPrincipalCriteria">
+              <PropertyRef Name="EvalCriteriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubPrincipalCriteria_EvalPeriod">
+          <End Type="EVEModel.EvalPeriod" Role="EvalPeriod" Multiplicity="1" />
+          <End Type="EVEModel.SubPrincipalCriteria" Role="SubPrincipalCriteria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EvalPeriod">
+              <PropertyRef Name="EvalPeriodId" />
+            </Principal>
+            <Dependent Role="SubPrincipalCriteria">
+              <PropertyRef Name="EvalPeriodId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2632,6 +2756,15 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="EvalCriteriaId" ColumnName="EvalCriteriaId" />
                 <ScalarProperty Name="EvalResultCode" ColumnName="EvalResultCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubPrincipalCriterias">
+            <EntityTypeMapping TypeName="EVEModel.SubPrincipalCriteria">
+              <MappingFragment StoreEntitySet="SubPrincipalCriteria">
+                <ScalarProperty Name="EvalCriteriaId" ColumnName="EvalCriteriaId" />
+                <ScalarProperty Name="EvalPeriodId" ColumnName="EvalPeriodId" />
+                <ScalarProperty Name="SubPrincipalId" ColumnName="SubPrincipalId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -160,6 +160,9 @@
     <Compile Include="SchoolLevel.cs">
       <DependentUpon>EVEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SubPrincipalCriteria.cs">
+      <DependentUpon>EVEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="sysdiagram.cs">
       <DependentUpon>EVEModel.tt</DependentUpon>
     </Compile>
