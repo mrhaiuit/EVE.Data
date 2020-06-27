@@ -21,10 +21,11 @@ namespace EVE.Data
         public int EvalCriteriaId { get; set; }
         public string EvalCriteriaName { get; set; }
         public string EvalResultCode { get; set; }
+        public string EvalResultPrincipal { get; set; }
         public string Sample { get; set; }
         public string Attachment { get; set; }
     
-        public virtual EvalMaster EvalMaster { get; set; }
         public virtual EvalCriteria EvalCriteria { get; set; }
+        public virtual EvalMaster EvalMaster { get; set; }
     }
 }

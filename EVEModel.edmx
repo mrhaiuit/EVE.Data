@@ -110,6 +110,7 @@
           <Property Name="EvalCriteriaId" Type="int" Nullable="false" />
           <Property Name="EvalCriteriaName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="EvalResultCode" Type="varchar" MaxLength="50" />
+          <Property Name="EvalResultPrincipal" Type="nvarchar" MaxLength="100" />
           <Property Name="Sample" Type="nvarchar(max)" />
           <Property Name="Attachment" Type="varchar" MaxLength="300" />
         </EntityType>
@@ -1669,7 +1670,6 @@
             <End Role="School" EntitySet="Schools" />
             <End Role="SchoolDepartment" EntitySet="SchoolDepartments" />
           </AssociationSet>
-          <EntitySet Name="EvalDetails" EntityType="EVEModel.EvalDetail" />
           <FunctionImport Name="usp_rpt_BM04" ReturnType="Collection(EVEModel.usp_rpt_BM04_Result)">
             <Parameter Name="schoolId" Mode="In" Type="Int32" />
             <Parameter Name="periodId" Mode="In" Type="Int32" />
@@ -1723,10 +1723,6 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="UserGroup_Employee" EntitySet="UserGroup_Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK_EvalDetail_EvalMaster" Association="EVEModel.FK_EvalDetail_EvalMaster">
-            <End Role="EvalMaster" EntitySet="EvalMasters" />
-            <End Role="EvalDetail" EntitySet="EvalDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_EvalMaster_EvalPeriod" Association="EVEModel.FK_EvalMaster_EvalPeriod">
             <End Role="EvalPeriod" EntitySet="EvalPeriods" />
             <End Role="EvalMaster" EntitySet="EvalMasters" />
@@ -1750,10 +1746,6 @@
             <End Role="EvalStandard" EntitySet="EvalStandards" />
             <End Role="EvalCriteria" EntitySet="EvalCriterias" />
           </AssociationSet>
-          <AssociationSet Name="FK_EvalDetail_EvalCriteria" Association="EVEModel.FK_EvalDetail_EvalCriteria">
-            <End Role="EvalCriteria" EntitySet="EvalCriterias" />
-            <End Role="EvalDetail" EntitySet="EvalDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_EvalGuide_EvalCriteria" Association="EVEModel.FK_EvalGuide_EvalCriteria">
             <End Role="EvalCriteria" EntitySet="EvalCriterias" />
             <End Role="EvalGuide" EntitySet="EvalGuides" />
@@ -1761,6 +1753,15 @@
           <AssociationSet Name="FK_SubPrincipalCriteria_EvalCriteria" Association="EVEModel.FK_SubPrincipalCriteria_EvalCriteria">
             <End Role="EvalCriteria" EntitySet="EvalCriterias" />
             <End Role="SubPrincipalCriteria" EntitySet="SubPrincipalCriterias" />
+          </AssociationSet>
+          <EntitySet Name="EvalDetails" EntityType="EVEModel.EvalDetail" />
+          <AssociationSet Name="FK_EvalDetail_EvalCriteria" Association="EVEModel.FK_EvalDetail_EvalCriteria">
+            <End Role="EvalCriteria" EntitySet="EvalCriterias" />
+            <End Role="EvalDetail" EntitySet="EvalDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EvalDetail_EvalMaster" Association="EVEModel.FK_EvalDetail_EvalMaster">
+            <End Role="EvalMaster" EntitySet="EvalMasters" />
+            <End Role="EvalDetail" EntitySet="EvalDetails" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Position">
@@ -1936,22 +1937,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="EvalDetail">
-          <Key>
-            <PropertyRef Name="EvalDetailId" />
-          </Key>
-          <Property Name="EvalDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="EvalMasterId" Type="Int32" Nullable="false" />
-          <Property Name="EvalStandardId" Type="Int32" />
-          <Property Name="EvalStandardName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="EvalCriteriaId" Type="Int32" Nullable="false" />
-          <Property Name="EvalCriteriaName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="EvalResultCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Sample" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Attachment" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="EvalMaster" Relationship="EVEModel.FK_EvalDetail_EvalMaster" FromRole="EvalDetail" ToRole="EvalMaster" />
-          <NavigationProperty Name="EvalCriteria" Relationship="EVEModel.FK_EvalDetail_EvalCriteria" FromRole="EvalDetail" ToRole="EvalCriteria" />
-        </EntityType>
         <ComplexType Name="usp_rpt_BM04_Result">
           <Property Type="Int64" Name="Idx" Nullable="true" />
           <Property Type="String" Name="EmployeeName" Nullable="true" MaxLength="500" />
@@ -2057,9 +2042,9 @@
           <Property Name="Condition" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="EVEModel.FK_EvalMaster_Employee" FromRole="EvalMaster" ToRole="Employee" />
           <NavigationProperty Name="Employee1" Relationship="EVEModel.FK_EvalMaster_Employee1" FromRole="EvalMaster" ToRole="Employee" />
-          <NavigationProperty Name="EvalDetails" Relationship="EVEModel.FK_EvalDetail_EvalMaster" FromRole="EvalMaster" ToRole="EvalDetail" />
           <NavigationProperty Name="EvalPeriod" Relationship="EVEModel.FK_EvalMaster_EvalPeriod" FromRole="EvalMaster" ToRole="EvalPeriod" />
           <NavigationProperty Name="EvalState" Relationship="EVEModel.FK_EvalMaster_EvalState" FromRole="EvalMaster" ToRole="EvalState" />
+          <NavigationProperty Name="EvalDetails" Relationship="EVEModel.FK_EvalDetail_EvalMaster" FromRole="EvalMaster" ToRole="EvalDetail" />
         </EntityType>
         <Association Name="FK_Employee_EduDepartment">
           <End Type="EVEModel.EduDepartment" Role="EduDepartment" Multiplicity="0..1" />
@@ -2181,18 +2166,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EvalDetail_EvalMaster">
-          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="1" />
-          <End Type="EVEModel.EvalDetail" Role="EvalDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EvalMaster">
-              <PropertyRef Name="EvalMasterId" />
-            </Principal>
-            <Dependent Role="EvalDetail">
-              <PropertyRef Name="EvalMasterId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EvalMaster_EvalPeriod">
           <End Type="EVEModel.EvalPeriod" Role="EvalPeriod" Multiplicity="0..1" />
           <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="*" />
@@ -2276,9 +2249,9 @@
           <Property Name="Active" Type="Boolean" />
           <Property Name="Idx" Type="Int32" />
           <NavigationProperty Name="EvalStandard" Relationship="EVEModel.FK_EvalCriteria_EvalStandard" FromRole="EvalCriteria" ToRole="EvalStandard" />
-          <NavigationProperty Name="EvalDetails" Relationship="EVEModel.FK_EvalDetail_EvalCriteria" FromRole="EvalCriteria" ToRole="EvalDetail" />
           <NavigationProperty Name="EvalGuides" Relationship="EVEModel.FK_EvalGuide_EvalCriteria" FromRole="EvalCriteria" ToRole="EvalGuide" />
           <NavigationProperty Name="SubPrincipalCriterias" Relationship="EVEModel.FK_SubPrincipalCriteria_EvalCriteria" FromRole="EvalCriteria" ToRole="SubPrincipalCriteria" />
+          <NavigationProperty Name="EvalDetails" Relationship="EVEModel.FK_EvalDetail_EvalCriteria" FromRole="EvalCriteria" ToRole="EvalDetail" />
         </EntityType>
         <Association Name="FK_EvalCriteria_EvalStandard">
           <End Type="EVEModel.EvalStandard" Role="EvalStandard" Multiplicity="0..1">
@@ -2291,18 +2264,6 @@
             </Principal>
             <Dependent Role="EvalCriteria">
               <PropertyRef Name="EvalStandardId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EvalDetail_EvalCriteria">
-          <End Type="EVEModel.EvalCriteria" Role="EvalCriteria" Multiplicity="1" />
-          <End Type="EVEModel.EvalDetail" Role="EvalDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EvalCriteria">
-              <PropertyRef Name="EvalCriteriaId" />
-            </Principal>
-            <Dependent Role="EvalDetail">
-              <PropertyRef Name="EvalCriteriaId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2327,6 +2288,47 @@
             </Principal>
             <Dependent Role="SubPrincipalCriteria">
               <PropertyRef Name="EvalCriteriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EvalDetail">
+          <Key>
+            <PropertyRef Name="EvalDetailId" />
+          </Key>
+          <Property Name="EvalDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EvalMasterId" Type="Int32" Nullable="false" />
+          <Property Name="EvalStandardId" Type="Int32" />
+          <Property Name="EvalStandardName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EvalCriteriaId" Type="Int32" Nullable="false" />
+          <Property Name="EvalCriteriaName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EvalResultCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EvalResultPrincipal" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Sample" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Attachment" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EvalCriteria" Relationship="EVEModel.FK_EvalDetail_EvalCriteria" FromRole="EvalDetail" ToRole="EvalCriteria" />
+          <NavigationProperty Name="EvalMaster" Relationship="EVEModel.FK_EvalDetail_EvalMaster" FromRole="EvalDetail" ToRole="EvalMaster" />
+        </EntityType>
+        <Association Name="FK_EvalDetail_EvalCriteria">
+          <End Type="EVEModel.EvalCriteria" Role="EvalCriteria" Multiplicity="1" />
+          <End Type="EVEModel.EvalDetail" Role="EvalDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EvalCriteria">
+              <PropertyRef Name="EvalCriteriaId" />
+            </Principal>
+            <Dependent Role="EvalDetail">
+              <PropertyRef Name="EvalCriteriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EvalDetail_EvalMaster">
+          <End Type="EVEModel.EvalMaster" Role="EvalMaster" Multiplicity="1" />
+          <End Type="EVEModel.EvalDetail" Role="EvalDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EvalMaster">
+              <PropertyRef Name="EvalMasterId" />
+            </Principal>
+            <Dependent Role="EvalDetail">
+              <PropertyRef Name="EvalMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2615,21 +2617,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EvalDetails">
-            <EntityTypeMapping TypeName="EVEModel.EvalDetail">
-              <MappingFragment StoreEntitySet="EvalDetail">
-                <ScalarProperty Name="Attachment" ColumnName="Attachment" />
-                <ScalarProperty Name="Sample" ColumnName="Sample" />
-                <ScalarProperty Name="EvalResultCode" ColumnName="EvalResultCode" />
-                <ScalarProperty Name="EvalCriteriaName" ColumnName="EvalCriteriaName" />
-                <ScalarProperty Name="EvalCriteriaId" ColumnName="EvalCriteriaId" />
-                <ScalarProperty Name="EvalStandardName" ColumnName="EvalStandardName" />
-                <ScalarProperty Name="EvalStandardId" ColumnName="EvalStandardId" />
-                <ScalarProperty Name="EvalMasterId" ColumnName="EvalMasterId" />
-                <ScalarProperty Name="EvalDetailId" ColumnName="EvalDetailId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_rpt_BM04" FunctionName="EVEModel.Store.usp_rpt_BM04">
             <ResultMapping>
               <ComplexTypeMapping TypeName="EVEModel.usp_rpt_BM04_Result">
@@ -2765,6 +2752,22 @@
                 <ScalarProperty Name="EvalCriteriaCode" ColumnName="EvalCriteriaCode" />
                 <ScalarProperty Name="EvalStandardId" ColumnName="EvalStandardId" />
                 <ScalarProperty Name="EvalCriteriaId" ColumnName="EvalCriteriaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EvalDetails">
+            <EntityTypeMapping TypeName="EVEModel.EvalDetail">
+              <MappingFragment StoreEntitySet="EvalDetail">
+                <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+                <ScalarProperty Name="Sample" ColumnName="Sample" />
+                <ScalarProperty Name="EvalResultPrincipal" ColumnName="EvalResultPrincipal" />
+                <ScalarProperty Name="EvalResultCode" ColumnName="EvalResultCode" />
+                <ScalarProperty Name="EvalCriteriaName" ColumnName="EvalCriteriaName" />
+                <ScalarProperty Name="EvalCriteriaId" ColumnName="EvalCriteriaId" />
+                <ScalarProperty Name="EvalStandardName" ColumnName="EvalStandardName" />
+                <ScalarProperty Name="EvalStandardId" ColumnName="EvalStandardId" />
+                <ScalarProperty Name="EvalMasterId" ColumnName="EvalMasterId" />
+                <ScalarProperty Name="EvalDetailId" ColumnName="EvalDetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
