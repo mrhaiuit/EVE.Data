@@ -19,7 +19,7 @@ namespace EVE.Data
         public int EvalCriteriaId { get; set; }
     
         public virtual Employee Employee { get; set; }
-        public virtual EvalCriteria EvalCriteria { get; set; }
         public virtual EvalPeriod EvalPeriod { get; set; }
+        public virtual EvalCriteria EvalCriteria { get; set; }
     }
 }

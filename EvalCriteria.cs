@@ -27,7 +27,7 @@ namespace EVE.Data
         public string EvalCriteriaCode { get; set; }
         public string EvalCriteriaName { get; set; }
         public Nullable<bool> Active { get; set; }
-        public string Idx { get; set; }
+        public Nullable<int> Idx { get; set; }
     
         public virtual EvalStandard EvalStandard { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
